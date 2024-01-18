@@ -11,6 +11,7 @@ public class FriendExe {
 			boolean run = true;
 			Friend[] friends = new Friend[5]; // {null,null,null,null,null}
 			int score = 0;
+			
 			double weight = 0;
 			while(run) {
 				System.out.println("1.등록 2.조회 3.수정 4.삭제 5.점수조회 6.분석 9.종료");
@@ -19,12 +20,27 @@ public class FriendExe {
 				int menu = Integer.parseInt(scn.nextLine());
 				switch(menu) {
 				case 1: //등록
+					
+					score = -1;
+					weight = 0.0;
 					System.out.print("이름>>>");
 					String name = scn.nextLine();
+					if(name.equals("")) {
+						System.out.println("이름을입력해주세요");
+						break;
+					}
 					System.out.print("몸무게>>>");
 					weight = Double.parseDouble(scn.nextLine());
-					System.out.print("점수>>>");
+					if(weight==0.0) {
+						System.out.println("몸무게를 입력해주세요");
+						break;
+					}
+					System.out.print("점수>>>");	
 					score = Integer.parseInt(scn.nextLine());
+					if(score == -1) {
+						System.out.println("점수를입력해주세요");
+						break;
+					}
 					Friend friend = new Friend();
 					friend.name = name;
 					friend.weight = weight;
@@ -34,9 +50,9 @@ public class FriendExe {
 					for(int i=0; i<friends.length; i++) {
 						if(friends[i]==null) {
 							friends[i] = friend;
-							break;
-						}
+						}	
 					}
+					
 					System.out.println("정상적으로 입력되었습니다.");
 					break;
 						
@@ -47,6 +63,7 @@ public class FriendExe {
 					for(int i=0; i<friends.length; i++) {
 						if(friends[i]!=null && friends[i].name.equals(fname)) {
 							System.out.printf("%s의 몸무게는%.1f이고 성적은 %d점입니다.\n",friends[i].name,friends[i].weight,friends[i].score);
+							break;
 					 }
 					}
 					break;
@@ -109,18 +126,21 @@ public class FriendExe {
 					int sum = 0;
 				    String str ="";
 				    int cnt1 = 0;
-					for(int i=0; i<friends.length; i++) {
-						if( friends[i]!=null ) {
-						sum += friends[i].score ;
+				    score= -1;
+					for(int i=0; i < friends.length; i++) {
+						if( friends[i] != null ) {
+						sum += friends[i].score;
 						cnt1++;
-						avg = sum/cnt1;
+						avg = sum/cnt1; 
 						}
-						if(friends[i]!=null && max<friends[i].score) {
+					}
+					for(int i=0; i < friends.length; i++) {
+						if (friends[i] !=null && max<friends[i].score) {
 							max = friends[i].score;
 							str = friends[i].name;
 						}
 					}
-					System.out.printf("학생들의 총점은 %d이고\n평균점수는 %.1f이다\n",sum ,avg);
+					System.out.printf("학생들의 총점은 %d이고평균점수는 %.1f이다\n",sum ,avg);
 					System.out.printf("최고점수의 학생은 %s 이며 최고점은 %d 이다\n",str, max);
 					 break;
 				case 9: //종료
