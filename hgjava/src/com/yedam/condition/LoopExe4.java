@@ -18,7 +18,7 @@ public static void method2() {
  		   //2~9단정보
 		for(int j=2; j<=9; j++) {
 			
-		System.out.printf("%d*%d=%d\t",j,i,(j*i));
+		System.out.printf("%d*%d=%d\t",j,i,(j*i)); 
 			
 		}System.out.println(); //줄바꿈
 		//끝

@@ -36,7 +36,7 @@ public class BankExe {
 			case 3:System.out.println("잔고확인");
 			       System.out.println(balance);
 			       break;
-			case 4:
+			case 4: 
 					run=false;
 					break;
 			}

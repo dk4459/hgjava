@@ -13,7 +13,7 @@ public class DoWhileExe3 {
 			if(cnt++ > 3) {
 				run =false;
 			}
-		}while(run); {
+		}while(run); { 
 		}
 		System.out.println("end of porg.");
 	}

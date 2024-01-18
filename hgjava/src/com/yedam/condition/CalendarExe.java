@@ -30,10 +30,12 @@ public class CalendarExe {
         }
 		
 		System.out.println("\t    "+month+"월");
-				String[] days = {"sun","mon","tue","wed","Thr","Fri","Str"}
-				System.out.printf("$4s", );
+				String[] days = {"sun","mon","tue","wed","Thr","Fri","Str"};
+				for(int i=0; i < 7; i++) {
+				System.out.printf("%3s",days[i],"\n");}
+				System.out.println("");
 				for(int i=0; i < pos; i++) {
-					System.out.printf("%3s","");
+					System.out.printf("%3s"," "); 
 				}
 				
 				for(int d =1; d<= lastDate; d++) {

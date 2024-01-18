@@ -14,7 +14,7 @@ public class OperarExe1 {
 			String inp = scn.nextLine();
 			if(inp.equals("quit")) {
 					break;
-			}
+			} 
 			try {
 			  result += Integer.parseInt(inp);
 			}catch (Exception e) {

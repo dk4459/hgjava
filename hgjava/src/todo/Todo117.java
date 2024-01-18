@@ -2,8 +2,6 @@ package todo;
 
 import java.util.Scanner;
 
-import com.sun.xml.internal.bind.v2.runtime.Name;
-
 public class Todo117 {
 
 	public static void main(String[] args) {
@@ -15,28 +13,28 @@ public class Todo117 {
 		String name1 ="";	
 		String phone1 ="";
 		
-//		String[] name2 = new String[5];
-//		String[] phone2 = new String[5];
-		String[]name2 = name1.split("");
-		String[]phone2 = phone1.split("");
+		String[] name2 = new String[3];
+		String[] phone2 = new String[3];
+//		name2 = name1.split("");
+//		phone2 = phone1.split("");
 		//입력완료.
 		
 			  
-		  for(int j=1; j<=3; j++) {
+		  for(int j=0; j<=2; j++) {
 		  System.out.println("이름을 입력하세요");
 		  name = scn.nextLine();
 		  System.out.println("전화번호를 입력하세요");
 		  phone = scn1.nextLine();
-		  name1 +=name;
-		  phone1 += name;
+		  name2[j] = name;
+		  phone2[j] = name;
 		  }
 		  
-//		for(int i=0; i<=name2.length; i++) {
-//			System.out.println("이름 : "+name2[i]);
-//			System.out.println("전화번호 : "+phone2[i]);
-//			System.out.println("=================");
-//		}
-       System.out.println(name2[0]);
+		for(int i=0; i<name2.length; i++) {
+			System.out.println("이름 : "+name2[i]);
+			System.out.println("전화번호 : "+phone2[i]);
+			System.out.println("=================");
+		}
+//          System.out.println(name2[0]);
 		//이름 홍길동
 		//연락처 : 010-1111-2222
 		//=====================

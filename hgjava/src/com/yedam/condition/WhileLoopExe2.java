@@ -21,7 +21,7 @@ public class WhileLoopExe2 {
 			}
 				System.out.println("입력한값보다 작습니다.");
 				
-			}
+			} 
 			
 			System.out.println("틀린값");
 			System.out.println("end of prog.");
