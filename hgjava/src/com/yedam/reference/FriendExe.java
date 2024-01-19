@@ -126,12 +126,11 @@ public class FriendExe {
 					int sum = 0;
 				    String str ="";
 				    int cnt1 = 0;
-				    score= -1;
 					for(int i=0; i < friends.length; i++) {
 						if( friends[i] != null ) {
 						sum += friends[i].score;
 						cnt1++;
-						avg = sum/cnt1; 
+						avg = (double)sum/cnt1; 
 						}
 					}
 					for(int i=0; i < friends.length; i++) {
