@@ -42,10 +42,13 @@ public class FriendExe {
 		    age = Integer.parseInt(scn.nextLine());
 		    
 		    Friend fr = new Friend(name,phone,age);
-		    
+		    break;
 
      
  	case 2: //목록
+ 		System.out.println("조회할 이름");
+ 		name = scn.nextLine();
+ 		
  		
  		
  		

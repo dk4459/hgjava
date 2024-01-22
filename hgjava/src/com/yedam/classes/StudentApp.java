@@ -11,6 +11,8 @@ public class StudentApp {
 	}
 	
 	
+	
+	
 	//studends = 메모리 할당.
 	static {
 		students = new Student[10];
@@ -36,7 +38,7 @@ public class StudentApp {
 	public static boolean modify(String sno, int score) {
 		for(int i=0; i<students.length; i++) {
 			if(students[i] != null && students[i].getSno().equals(sno)) {
-				students[i].setScore(score);
+		  		students[i].setScore(score);
 				return true;
 			}
 		}
@@ -61,4 +63,6 @@ public class StudentApp {
 		}
 		 return null; 
 	}
+	
+
 }
