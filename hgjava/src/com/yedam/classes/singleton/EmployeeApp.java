@@ -1,6 +1,5 @@
 package com.yedam.classes.singleton;
 
-import java.lang.invoke.MethodHandles.Lookup.ClassOption;
 import java.util.Scanner;
 
 public class EmployeeApp {

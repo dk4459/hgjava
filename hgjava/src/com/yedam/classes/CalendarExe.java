@@ -15,19 +15,11 @@ public class CalendarExe {
                                                                       //3. 요일(Calendar.DATE)
 	     System.out.println("last Date:"+ cal.getActualMaximum(Calendar.DATE)); // getActualMaximum()그달의 마지막날 
 	     
-//	     drawCalendar(2024,4);
-	     //Date date = new Date();   //1900년부터 시작 Date클래스는 곧 없어짐
-	     //System.out.println(date.getYear()+1900);
-	     //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
-	     //try{
-	       //date =sdf.parse("2024-01-01");
-	     //}catch(Exception e)
-	     //e.prinStackTrace();
+	   drawCalendar(2024,3);
+	  
 	}
-	      //drawCalendar(date);
-//	static void draCalendar(Date date) {
-		
-//	}
+	     
+
 	
 	static void drawCalendar(int year, int month) {
 		// (2024, 1)
@@ -42,7 +34,7 @@ public class CalendarExe {
 		System.out.printf("%3s",days[i],"\n");}
 		System.out.println("");//1일의 요일지정
 		for(int i=0; i < pos; i++) {
-			System.out.printf("%3s"," "); 
+			System.out.printf("%3s",""); 
 		}
 		for(int d =1; d<= lastDate; d++) {
 			System.out.printf("%3d", d);

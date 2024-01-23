@@ -1,8 +1,8 @@
 package com.yedam.classes.inherit;
 
-import lombok.Data;
 
-@Data
+
+
 public class UnivFriend extends Friend {
     
 	//학교,전공
@@ -19,5 +19,20 @@ public class UnivFriend extends Friend {
 //		 public String toString {
 //			return super.toString()+",학교는"+ univ + "전공은" + major;
 //		}
-	
+	public void setUniv(String univ) {
+  		this.univ = univ;
+  		
+  	}
+  	public String getPhone() {
+  		return this.univ;
+      
+    }
+  	public void setMajor(String major) {
+  		this.major = major;
+  		
+  	}
+  	public String getMajor() {
+  		return this.major;
+      
+    }
 }

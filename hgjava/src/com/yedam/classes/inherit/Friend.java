@@ -1,11 +1,11 @@
 package com.yedam.classes.inherit;
 
-import lombok.Data;
+
 
 //이름, 연락처             (Friend)
 //이름, 연락처, 학교, 전공   (UnivFriend)
 //이름, 연락처, 회사, 부서   (CompFriend)
-@Data
+
 public class Friend extends Object{   //명시는 안되어있지만 object클래스의것을 상속받는다
       private String name;
       private String phone;
@@ -18,5 +18,19 @@ public class Friend extends Object{   //명시는 안되어있지만 object클�
       public String toString() {
     	  return "이름은"+name+",연락처는"+phone;
       }
+      public void setName(String name) { //값을 담을때는 set을한다.
+  		this.name = name;
+  		
+  	}
+  	public String getName() {
+  		return this.name;
+  	}
+  	public void setPhone(String phone) {
+  		this.phone = phone;
+  		
+  	}
+  	public String getPhone() {
+  		return this.phone;
       
-}
+    }
+ }

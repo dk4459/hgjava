@@ -1,9 +1,9 @@
 package com.yedam.classes.inherit;
 
-import lombok.Data;
-import lombok.ToString;
 
-@Data
+
+
+
 public class ComFriend extends Friend{
     private String company;
     private String dept;
@@ -17,5 +17,21 @@ public class ComFriend extends Friend{
     @Override
     public String toString() {
         return super.toString()+",회사는" + company +"부서는" + dept;
+    }
+    public void setCompany(String company) {
+  		this.company= company;
+  		
+  	}
+  	public String getCompany() {
+  		return this.company;
+      
+    }
+  	public void setDept(String dept) {
+  		this.dept = dept;
+  		
+  	}
+  	public String getDept() {
+  		return this.dept;
+      
     }
 }
