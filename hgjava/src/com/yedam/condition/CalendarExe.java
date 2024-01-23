@@ -18,8 +18,8 @@ public class CalendarExe {
 		switch(month){
 		case 1: pos = 1; break;
 		case 2: pos = 4; break;
-		case 3:pos = 5; break;
-		case 4:pos = 1; break;
+		case 3: pos = 5; break;
+		case 4: pos = 1; break;
 		}
 		//수정... 월의 변경될때마다 마지막날 계산.
         switch(month) {
