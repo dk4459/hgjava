@@ -38,8 +38,9 @@ public class AnonymousExe {
 //   		System.out.println("이름은"+ name +"입니다.");
 			showInfo("홍길동",20);
 		}
-	   };	
+	   };
+	   
 	   parent.showName();
-	  // parent.showInfo(); 자식메소드는 부모가 사용못함
+//	   parent.showInfo(); 자식메소드는 부모가 사용못함
 	}
 }

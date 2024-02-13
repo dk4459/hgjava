@@ -12,6 +12,7 @@ public class QueueExe {
 		que.offer("김길동");
 		que.offer("박길동");
 		
+		
 		while(!que.isEmpty()) {
 			String result = que.poll();
 			System.out.println(result);

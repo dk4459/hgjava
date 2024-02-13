@@ -25,6 +25,7 @@ public class Outer {
 		System.out.println(nest.field2);
 		nest.method2();
 		
-		StaticClass.method3();   //스태틱메서드는 바로 호출 가능!
+		StaticClass.method3();                //스태틱메서드는 바로 호출 가능!
+		
 	}
 }

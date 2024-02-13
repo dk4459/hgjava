@@ -16,5 +16,6 @@ public class NestedExe {
 		
 		Map.Entry<String, Integer> entry;
 		
+		Outer.StaticClass.method3();
 	}
 }

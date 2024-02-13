@@ -3,7 +3,7 @@ package com.yedam.io.emp;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Employee implements Serializable{
+public class Employee implements Serializable{ // 직렬화 할 수 있는
 	private int empNo;
 	private String empName;
 	private Date hireDate;
@@ -16,6 +16,9 @@ public class Employee implements Serializable{
 		this.hireDate = hireDate;
 		this.salary = salary;
 	}
+	public void name(String empName) {
+		this.empName = empName;
+		}
 
 	
 	@Override

@@ -35,5 +35,9 @@ public class ClassExe {
            
            Scanner scn = new Scanner(new File(path));
            System.out.println(scn.nextLine());
+           
+           
 	}
+		
+		
 }

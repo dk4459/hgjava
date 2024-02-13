@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import sun.awt.SunToolkit.InfiniteLoop;
+
 public class EmpExe {
 	public static void main(String[] args) {
 
@@ -13,7 +15,7 @@ public class EmpExe {
 		EmpApp app = new EmpApp();
 
 		while (run) {
-			System.out.println("1.등록 2.목록 9.종료");
+			System.out.println("1.등록 2.목록 3.삭제 9.종료");
 			System.out.println("선택>>");
 
 			int menu = Integer.parseInt(scn.nextLine());
@@ -41,6 +43,8 @@ public class EmpExe {
 					System.out.println(std.toString());
 				}
 				break;
+			case 3: //삭제
+				
 			case 9:
 				System.out.println("프로그램 종료");
 				app.save();

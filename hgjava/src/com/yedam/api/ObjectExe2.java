@@ -22,5 +22,6 @@ public class ObjectExe2 {
 		for(Member mem: members) {              
 			System.out.println(mem.toString());
 		}
+	
 	}
 }
