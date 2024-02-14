@@ -26,8 +26,6 @@ public class UserDAO {
 	  }
 		catch (SQLException e) {
 				e.printStackTrace();
-			}finally {
-			  disconn();
 			}
 		
 	}
@@ -58,7 +56,8 @@ public class UserDAO {
 			e.printStackTrace();
 		}finally {
 			disconn();
-		}return false;
+		}
+		return false;
 	}
      //로그인
 //	public int  login(String id, String pw) {
@@ -111,8 +110,9 @@ public class UserDAO {
 		}return false;
 	}
 	//회원정보 조회
-	public boolean userInf(String id, String pw) {
+	public List<User> userInf(String id, String pw) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		List<User> list = new ArrayList<>();
 		conn = DAO1.getConn();
 		sql =     "SELECT user_id, user_pw, user_phone, "
 				+ " user_name, user_date, user_nic "
@@ -125,15 +125,19 @@ public class UserDAO {
 			psmt.setString(1, id);
 			psmt.setString(2, pw);
 			rs = psmt.executeQuery();
-			if(rs.next()) {
-				System.out.printf("%5s %8s %13s %15s %15s %15s\n","이름","아이디","비밀번호","휴대전화","가입일자","닉네임");
-				System.out.printf("%6s %9s %15s %15s %23s %15s",rs.getString("user_name"),rs.getString("user_id")
-                ,rs.getString("user_pw"),rs.getString("user_phone")
-                ,rs.getDate("user_date"),rs.getString("user_nic"));
-			    return true;
+			while(rs.next()) {
+				User user = new User();
+				user.setUserId(rs.getString("user_id"));
+				user.setUserPw(rs.getString("user_pw"));
+				user.setUserPhone(rs.getString("user_phone"));
+				user.setUserName(rs.getString("user_name"));
+				user.setUserDate(rs.getDate("user_Date"));
+				user.setUserNic(rs.getString("user_Nic"));
+				list.add(user);
+				return list;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}return false;
+		}return null;
 	}
 }
