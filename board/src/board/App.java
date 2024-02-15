@@ -127,14 +127,14 @@ public class App {
 	    	    System.out.println("(-1 내용 검색) (-2 종료) (n 찾을페이지)");
 	    	    System.out.print("페이지 >>");
 	    	    page = scn.nextInt(); scn.nextLine();
-	    	    if(page == -2) {
+	    	    if(page == -2) {//종료
 	    	    	break;
-	    	    }else if(page == -1) {
+	    	    }else if(page == -1) { //내용검색
 	    	    	System.out.println("원하는 내용의 글번호를 눌러주세요");
-	    	    	while (true) {
+	    	    	while (true) { 
 	    	    	int title = scn.nextInt(); scn.nextLine();
 	    	    	List <Board> list1 = bdao.intoList(title);
-	                List<Dabs> dabs = new ArrayList<>();	 
+	                List<Dabs> dabs =  ddao.getList(title);	 
 	    	    	for(Board boa : list1) {
 	    	    		
 	    	    		System.out.println("====================================================================================================");
@@ -148,33 +148,36 @@ public class App {
 	    	    	for(Dabs dao : dabs) {
 	    	    	System.out.println("id: "+dao.getUserId()+"  ||  "+dao.getDap());
 	    	    	}
-	    	    	System.out.println("============================");
+	    	    	
+	    	    	System.out.println("=========================================================================================");
 	    	    	System.out.println("(댓글달기 1) (나가기 2)");
-//	    	    		int dap = scn.nextInt(); scn.nextLine();
-//	    	    		if(dap == 1) { //댓글 만들기
-//	    	    			System.out.print("게시판 번호>>");
-//	    	    			int gae = scn.nextInt();scn.nextLine();
-//	    	    			System.out.print("\n 해당 아이디 \n");
-//	    	    			String id = scn.nextLine();
-//	    	    			System.out.println("댓글을 입력하세요");
-//	    	    			String nae = scn.nextLine();
-//	    	    		    try {
-//	    	    		    	Dabs dab = new Dabs(id,gae,nae);
-//	    	    		    	if(ddao.insertDab(dab)) {
-//	    	    		    		System.out.println("등록완료");
-//	    	    		    	}else {
-//	    	    		    		System.out.println("등록에러");
-//	    	    		    	}
-//	    	    		    }catch(Exception e) {
-//	    	    		    	e.printStackTrace();
-//	    	    		    }
-//	    	    		    
-//	    	    		}else if(dap == 2) {
-//	    	    			break;
-//	    	    		}
+	    	    		int dap = scn.nextInt(); scn.nextLine();
+	    	    		if(dap == 1) { //댓글 만들기
+	    	    			System.out.print("게시판 번호>>");
+	    	    			int gae = scn.nextInt();scn.nextLine();
+	    	    			System.out.print("\n 해당 아이디 \n");
+	    	    			String id = scn.nextLine();
+	    	    			System.out.println("댓글을 입력하세요");
+	    	    			String nae = scn.nextLine();
+	    	    		    try {
+	    	    		    	Dabs dab = new Dabs(id,gae,nae);
+	    	    		    	if(ddao.insertDab(dab)) {
+	    	    		    		System.out.println("등록완료");
+	    	    		    		break;
+	    	    		    	}else {
+	    	    		    		System.out.println("등록에러");
+	    	    		    		break;
+	    	    		    	}
+	    	    		    }catch(Exception e) {
+	    	    		    	e.printStackTrace();
+	    	    		    }
+	    	    		    
+	    	    		}else if(dap == 2) {
+	    	    			break;
+	    	    		}
 	    	     }
-	    	   }
-	    }
+	    	 }//내용검색 끝
+	    }//조회 끝
 	    case 2://게시글 작성
 	    	
 	       		
@@ -214,98 +217,5 @@ public class App {
 	    }//case 6 끝)
 	  }
 	}
-       ////회원가입	
-//	   System.out.println("id>>");
-//	   String id = scn.nextLine();
-//	   System.out.println("pw>>");
-//	   String pw = scn.nextLine();
-//	   System.out.println("phone>>");
-//	   String phone = scn.nextLine();
-//	   System.out.println("name>>");
-//	   String name = scn.nextLine();
-//	   System.out.println("nic>>");
-//	   String nic = scn.nextLine();
-//	try {
-//		User user = new User(id, pw, phone, name, nic);
-//		if(udao.userAdd(user)) {
-//	    	System.out.println("정상적 등록");
-//	    }else {
-//	    	System.out.println("등록 에러");
-//	    }
-//	   }catch(Exception e) {
-//		   e.printStackTrace();
-//	   }
-	
-	//로그인
-//	int cnt= 0;
-//	boolean run = true;
-//	while(run) {
-//	System.out.println("id를 입력하세요");
-//	String id =scn.nextLine();
-//	System.out.println("pw를 입력하세요");
-//	String pw =scn.nextLine();
-//	if(udao.login(id,pw) == 0) {
-//		System.out.println("환영합니다");
-//		break;
-//	}else if(udao.login(id,pw) == -1 ) {
-//		System.out.println("입력하신 정보가 맞지 않습니다.");
-//		cnt++;
-//       if(cnt==3) {
-//			System.out.println("횟수초과");
-//			run = false;
-//		}				
-//	}
-//  }
-//  //아이디 비밀번호
-//		int cnt= 0;
-//		boolean run = true;
-//		while(run) {
-//		System.out.println("이름을 입력하세요");
-//		String name =scn.nextLine();
-//		System.out.println("전화번호 입력하세요");
-//		String phone =scn.nextLine();
-//		if(udao.serchInf(name,phone) == true) {
-//			System.out.println("조회 성공 하셨습니다.");
-//			break;
-//		}else if(udao.serchInf(name,phone) == false ) {
-//			System.out.println("입력하신 정보가 맞지 않습니다.");
-//			cnt++;
-//	       if(cnt==3) {
-//				System.out.println("횟수초과");
-//				run = false;
-//			}				
-//		}
-//	 }
-//    //회원정보 조회   
-//	   int cnt= 0;
-//		boolean run = true;
-//		while(run) {
-//		System.out.println("id를 입력하세요");
-//		String id =scn.nextLine();
-//		System.out.println("pw를 입력하세요");
-//		String pw =scn.nextLine();
-//		List<User> list = udao.userInf(id,pw);
-//		
-//		try{
-//			if(udao.userInf(id,pw)== null) {
-//				System.out.println("회원정보가 맞지 않습니다");
-//				cnt++;
-//				if(cnt == 3) {
-//					System.out.println("3회초과하여 프로그램이 종료됩니다");
-//					run= false;
-//				}
-//			}else {
-//				System.out.println("아이디   비밀번호    연락처      이름    가입일자   닉네임");
-//			    System.out.println("============================================");
-//			    for(User user : list) {
-//				System.out.println(user.getUserId()+" "+ user.getUserPw()+" "+
-//						user.getUserPhone()+" "+user.getUserName()+"   "+ 
-//						user.getUserDate()+" "+user.getUserNic()+" ");
-//			}break;
-//			  }
-//		}catch(NullPointerException e) {
-//			System.out.println("아");
-//		}
-//	}
  }
 }
