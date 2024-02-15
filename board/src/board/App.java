@@ -1,6 +1,7 @@
 package board;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class App {
 	SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 	UserDAO udao = new UserDAO();
 	BoardDAO bdao = new BoardDAO();
+	DabsDAO ddao = new DabsDAO(); 
 	boolean run = true;
 	boolean ru = true;
 	int menu = 0;
@@ -132,26 +134,49 @@ public class App {
 	    	    	while (true) {
 	    	    	int title = scn.nextInt(); scn.nextLine();
 	    	    	List <Board> list1 = bdao.intoList(title);
+	                List<Dabs> dabs = new ArrayList<>();	 
 	    	    	for(Board boa : list1) {
-	    	    		System.out.println("제목: "+boa.getBoardTitle()+"                   닉네임: "+boa.getUserNic()+"작성일자: "+boa.getBoardDate());
-	    	    	    System.out.println();
+	    	    		
+	    	    		System.out.println("====================================================================================================");
+	    	    		System.out.println("제목: "+boa.getBoardTitle()+"                   닉네임: "+boa.getUserNic()+"   작성일자: "+boa.getBoardDate());
+	    	    	    System.out.println("====================================================================================================");
 	    	    		System.out.println("내용");
 	    	    		System.out.println(boa.getBoardCon());
-	    	    		System.out.println();
-	    	    		System.out.println("                 댓글");
-	    	    		System.out.println("                  "+boa.getBoardCom());
-	    	    		
-	    	    		System.out.println("댓글달기 1 나가기 2");
-	    	    		int dap = scn.nextInt(); scn.nextLine();
-	    	    		if(dap == 1) {
-	    	    			
-	    	    		}else if(dap == 2) {
-	    	    			break;
-	    	    		}
+	    	    		System.out.println("====================================================================================================");
+	    	    		System.out.println("댓글");
 	    	    	}
+	    	    	for(Dabs dao : dabs) {
+	    	    	System.out.println("id: "+dao.getUserId()+"  ||  "+dao.getDap());
+	    	    	}
+	    	    	System.out.println("============================");
+	    	    	System.out.println("(댓글달기 1) (나가기 2)");
+//	    	    		int dap = scn.nextInt(); scn.nextLine();
+//	    	    		if(dap == 1) { //댓글 만들기
+//	    	    			System.out.print("게시판 번호>>");
+//	    	    			int gae = scn.nextInt();scn.nextLine();
+//	    	    			System.out.print("\n 해당 아이디 \n");
+//	    	    			String id = scn.nextLine();
+//	    	    			System.out.println("댓글을 입력하세요");
+//	    	    			String nae = scn.nextLine();
+//	    	    		    try {
+//	    	    		    	Dabs dab = new Dabs(id,gae,nae);
+//	    	    		    	if(ddao.insertDab(dab)) {
+//	    	    		    		System.out.println("등록완료");
+//	    	    		    	}else {
+//	    	    		    		System.out.println("등록에러");
+//	    	    		    	}
+//	    	    		    }catch(Exception e) {
+//	    	    		    	e.printStackTrace();
+//	    	    		    }
+//	    	    		    
+//	    	    		}else if(dap == 2) {
+//	    	    			break;
+//	    	    		}
 	    	     }
 	    	   }
 	    }
+	    case 2://게시글 작성
+	    	
 	       		
 	    
 	    

@@ -11,6 +11,7 @@ public class Board {
 	private String boardCom;
 	private String cate;
 	private String userNic;
+	private String dap;
 	
 	public Board() {
 		
@@ -91,6 +92,14 @@ public class Board {
 
 	public void setUserNic(String userNic) {
 		this.userNic = userNic;
+	}
+
+	public String getDap() {
+		return dap;
+	}
+
+	public void setDap(String dap) {
+		this.dap = dap;
 	}
 	
 	

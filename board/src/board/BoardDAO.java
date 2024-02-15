@@ -39,7 +39,6 @@ public class BoardDAO {
 				+ "       u.user_id, "
 				+ "       u.user_nic , "
 				+ "       b.board_date , "
-				+ "       b.board_com , "
 				+ "       b.cate "
 				+ "from \r\n"
 				+ "     (Select rownum rn, a.* "
@@ -65,7 +64,6 @@ public class BoardDAO {
 			board.setUserId(rs.getString("user_id"));
 			board.setUserNic(rs.getString("user_nic"));
 			board.setBoardDate(rs.getDate("board_date"));
-			board.setBoardCom(rs.getString("board_com"));
 			board.setCate(rs.getString("cate"));
 			list.add(board);
 			
@@ -101,30 +99,34 @@ public class BoardDAO {
     public List<Board> intoList(int no){
     	conn = DAO1.getConn();
 		List<Board> list = new ArrayList<>();
-		sql = "SELECT b.board_no board_no, "
-				+ "       b.board_title , "
-				+ "       b.board_con , "
-				+ "       b.user_id , "
-				+ "       u.user_nic , "
-				+ "       b.board_date , "
-				+ "       b.board_com, "
-				+ "       b.cate cate "
-				+ "FROM boards b JOIN users u "
-				+ "            ON (b.user_id = u.user_id) "
-				+ "WHERE b.board_no = ? ";
+		sql = "SELECT b.board_no,\r\n"
+				+ "        b.board_title,\r\n"
+				+ "        b.board_con,\r\n"
+				+ "        b.user_id,\r\n"
+				+ "        u.user_nic,\r\n"
+				+ "        b.board_date,\r\n"
+				+ "        b.cate,\r\n"
+				+ "        p.dap\r\n"
+				+ "FROM boards b JOIN users u\r\n"
+				+ "              ON(b.user_id = u.user_id)\r\n"
+				+ "              left outer JOIN dabs p\r\n"
+				+ "              ON(b.board_no = p.board_no)\r\n"
+				+ "WHERE b.board_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, no);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 			Board board  = new Board();
+			Dabs dabs = new Dabs();
 			board.setBoardNo(rs.getInt("board_no"));
 			board.setBoardTitle(rs.getString("board_title"));
 			board.setBoardCon(rs.getString("board_con"));
 			board.setUserId(rs.getString("user_id"));
 			board.setUserNic(rs.getString("user_nic"));
 			board.setBoardDate(rs.getDate("board_date"));
-			board.setBoardCom(rs.getString("board_com"));
+			dabs.setUserId(rs.getString("user_id"));
+			dabs.setDap(rs.getString("dap"));
 			board.setCate(rs.getString("cate"));
 			list.add(board);
 			
@@ -136,4 +138,6 @@ public class BoardDAO {
 		}
 		return list;
     }
+    //게시글 작성
+    
 }
