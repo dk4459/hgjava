@@ -60,33 +60,33 @@ public class UserDAO {
 		return false;
 	}
      //로그인
-//	public int  login(String id, String pw) {
-//		conn = DAO1.getConn();
-//		sql =     "SELECT user_id, "
-//				+ "        user_pw "
-//				+ "FROM users "
-//				+ "WHERE user_id = ? "
-//				+ "AND user_pw = ?";
-//		try {
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setString(1, id);
-//			psmt.setString(2, pw);
-//			
-//			rs = psmt.executeQuery();
-//			
-//			if (rs.next()) {
-//				if (rs.getString("user_id").equals(id) && rs.getString("user_pw").equals(pw)) {
-//					return 0; // 로그인 성공
-//				}
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return -1; 
-//	}
-	//아이디 비밀번호 찾기
+	public int  login(String id, String pw) {
+		conn = DAO1.getConn();
+		sql =     "SELECT user_id, "
+				+ "        user_pw "
+				+ "FROM users "
+				+ "WHERE user_id = ? "
+				+ "AND user_pw = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				if (rs.getString("user_id").equals(id) && rs.getString("user_pw").equals(pw)) {
+					return 0; // 로그인 성공
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; 
+	}
 	
+	//아이디 비밀번호 찾기
 	public boolean serchInf(String name, String phone) {
 		conn = DAO1.getConn();
 		sql =     "SELECT user_id, "
@@ -109,7 +109,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}return false;
 	}
-	//회원정보 조회
+//	//회원정보 조회
 	public List<User> userInf(String id, String pw) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		List<User> list = new ArrayList<>();
@@ -134,10 +134,10 @@ public class UserDAO {
 				user.setUserDate(rs.getDate("user_Date"));
 				user.setUserNic(rs.getString("user_Nic"));
 				list.add(user);
-				return list;
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}return null;
+		}return list;
 	}
 }

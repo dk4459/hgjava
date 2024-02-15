@@ -10,13 +10,14 @@ public class Board {
 	private Date boardDate;
 	private String boardCom;
 	private String cate;
+	private String userNic;
 	
 	public Board() {
 		
 	}
-	
+
 	public Board(int boardNo, String boardTitle, String boardCon, String userId, Date boardDate, String boardCom,
-			String cate) {
+			String cate, String userNic) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -25,9 +26,9 @@ public class Board {
 		this.boardDate = boardDate;
 		this.boardCom = boardCom;
 		this.cate = cate;
+		this.userNic = userNic;
 	}
 
-	
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -83,6 +84,15 @@ public class Board {
 	public void setCate(String cate) {
 		this.cate = cate;
 	}
+
+	public String getUserNic() {
+		return userNic;
+	}
+
+	public void setUserNic(String userNic) {
+		this.userNic = userNic;
+	}
+	
 	
 	
 }
