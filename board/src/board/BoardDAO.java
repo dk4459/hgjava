@@ -34,7 +34,7 @@ public class BoardDAO {
 	public List<Board> getList(String cate, int page){
 		conn = DAO1.getConn();
 		List<Board> list = new ArrayList<>();
-		sql = "select b.board_no  , "
+		sql = "select   b.board_no   , "
 				+ "       b.board_title , "
 				+ "       b.board_con , "
 				+ "       u.user_id, "
@@ -47,10 +47,11 @@ public class BoardDAO {
 				+ "          (Select * "
 				+ "           FROM boards "
 				+ "           WHERE cate = NVL(?,'유머') "
-				+ "           ORDER BY board_no DESC) a) b join users u "
+				+ "           ORDER BY board_date DESC) a) b join users u "
 				+ "                                    ON (b.user_id = u.user_id) "
 				+ "WHERE b.rn >  ( ? - 1 ) *5 "
 				+ "And   b.rn <= ? * 5 ";
+		
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cate);
@@ -140,5 +141,144 @@ public class BoardDAO {
 		return list;
     }
     //게시글 작성
+    public boolean insertBoard(Board board) {
+		conn=DAO1.getConn();
+		sql ="INSERT INTO boards(     board_no, "
+				+ "                   user_id, "
+				+ "                   board_title, "
+				+ "                   board_con, "
+				+ "                   board_date, "
+				+ "                   cate) "
+				+ "VALUES (board_seq.nextval,?,?,?,sysdate,?)";
+	
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, board.getUserId());
+			psmt.setString(2,board.getBoardTitle());
+			psmt.setString(3, board.getBoardCon());
+			psmt.setString(4, board.getCate());
+			
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally{
+			disconn();
+		}return false;
+	}
+    //검색
+    public List<Board> searchList(String title, int page){
+    	conn=DAO1.getConn();
+    	List<Board> list = new ArrayList<>();
+    	sql ="SELECT      b.board_no,\r\n"
+    			+ "       b.board_title,\r\n"
+    			+ "       u.user_id,\r\n"
+    			+ "       u.user_nic,\r\n"
+    			+ "       b.board_date,\r\n"
+    			+ "       b.cate\r\n"
+    			+ "FROM    (SELECT rownum rn, a.*\r\n"
+    			+ "         FROM \r\n"
+    			+ "            (SELECT *\r\n"
+    			+ "             FROM boards\r\n"
+    			+ "             WHERE board_title LIKE '%'||?||'%'\r\n"
+    			+ "             ORDER BY board_no DESC)a)b join users u\r\n"
+    			+ "                                    ON(b.user_id = u.user_id)\r\n"
+    			+ "WHERE b.rn > ( ? - 1) *5 "
+    			+ "AND b.rn <= ? * 5";
+    	try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, title);
+            psmt.setInt(2, page);
+            psmt.setInt(3, page);
+            rs=psmt.executeQuery();
+            while(rs.next()) {
+            	Board board = new Board();
+            	board.setBoardNo(rs.getInt("board_no"));
+            	board.setBoardTitle(rs.getString("board_title"));
+            	board.setUserId(rs.getString("user_id"));
+            	board.setUserNic(rs.getString("user_nic"));
+            	board.setBoardDate(rs.getDate("board_date"));
+            	board.setCate(rs.getString("cate"));
+            	list.add(board);
+            }
+    	} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			disconn();
+		}
+    	return list;
+    	
+    }
+    //제목수정
+    public boolean updateTitle(Board bor) {
+    	conn = DAO1.getConn();
+    	sql = "UPDATE boards\r\n "
+    			+ "SET board_title = ?\r\n "
+    			+ "WHERE user_id = ?\r\n "
+    			+ "AND board_no = ?";
+    	try {
+    		psmt=conn.prepareStatement(sql);
+    		psmt.setString(1, bor.getBoardTitle());
+    		psmt.setString(2, bor.getUserId());
+    		psmt.setInt(3, bor.getBoardNo());
+    		int r = psmt.executeUpdate();
+    		if(r>0) {
+    			return true;
+    		}
+    		
+    	}catch(SQLException e) {
+    		e.printStackTrace();
+    	}return false;
+    }
+    //내용수정
+    public boolean updateContent(Board bor) {
+    	conn = DAO1.getConn();
+    	sql = "UPDATE boards   "
+    			+ "SET board_con = ?  "
+    			+ "WHERE user_id = ?  "
+    			+ "AND board_no = ? ";
+    	try {
+    		psmt=conn.prepareStatement(sql);
+    		psmt.setString(1, bor.getBoardCon());
+    		psmt.setString(2, bor.getUserId());
+    		psmt.setInt(3, bor.getBoardNo());
+    		int r = psmt.executeUpdate();
+    		if(r>0) {
+    			return true;
+    		}
+    		
+    	}catch(SQLException e) {
+    		e.printStackTrace();
+    	}return false;
+    }
+    //게시글 삭제
+    public boolean removeBoard(int no, String id) {
+    	conn= DAO1.getConn();
+    	sql ="DELETE boards\r\n"
+    		+ "WHERE board_no = ?"
+    		+ "AND user_id = ?";
+    	
+    	 try {
+			psmt =conn.prepareStatement(sql);
+			psmt.setInt(1, no);
+			psmt.setString(2, id);
+			
+			int r =psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			disconn();
+		}
+		return false;
+    }  
+    	
     
 }

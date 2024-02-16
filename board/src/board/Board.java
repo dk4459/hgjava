@@ -17,6 +17,31 @@ public class Board {
 		
 	}
 
+	
+	public Board(String boardTitle) {
+		super();
+		this.boardTitle = boardTitle;
+	}
+
+
+	public Board(String userId, String boardTitle, String boardCon,  String cate) {
+		super();
+		this.userId = userId;
+		this.boardTitle = boardTitle;
+		this.boardCon = boardCon;
+		this.cate = cate;
+	}
+
+	
+
+	public Board( String boardTitle, String userId, int boardNo) {
+		super();
+		this.boardTitle = boardTitle;
+		this.userId = userId;
+		this.boardNo = boardNo;
+	}
+
+
 	public Board(int boardNo, String boardTitle, String boardCon, String userId, Date boardDate, String boardCom,
 			String cate, String userNic) {
 		super();

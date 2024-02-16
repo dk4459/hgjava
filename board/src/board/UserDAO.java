@@ -134,11 +134,11 @@ public class UserDAO {
 				user.setUserDate(rs.getDate("user_Date"));
 				user.setUserNic(rs.getString("user_Nic"));
 				list.add(user);
-				
+				return list;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}return list;
+		}return null;
 	}
 
 	
