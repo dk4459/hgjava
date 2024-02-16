@@ -1,7 +1,8 @@
 package board;
 
 public class Dabs {
-	private String userId;
+
+	private String userId ;
 	private int boardNO;
 	private String dap;
 	
