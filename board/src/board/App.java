@@ -671,8 +671,10 @@ public class App {
 					if(overId.equals(id)) {
 						if(udao.removeUser(overId, overPw)) {
 							System.out.println("정상적으로 회원탈퇴하였습니다 다음에 또 찾아주세요");
-						}else {
+						}else if(!overId.equals(id)){
 							System.err.println("회원정보가 맞지 않습니다.");
+						}else {
+							System.out.println("안됌");
 						}
 						break;
 					}
