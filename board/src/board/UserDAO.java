@@ -140,6 +140,83 @@ public class UserDAO {
 			e.printStackTrace();
 		}return null;
 	}
-
+	//회원정보 수정
+	public boolean pwModify(User user) {
+		conn = DAO1.getConn();
+		sql = "UPDATE users\r\n" + 
+				"SET user_pw = ?\r\n" + 
+				"WHERE user_id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, user.getUserPw());
+			psmt.setString(2, user.getUserId());
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}return false;
+		
+	}
+	public boolean phoneModify(User user) {
+		conn = DAO1.getConn();
+		sql = "UPDATE users  " + 
+				"SET user_phone = ?  " + 
+				"WHERE user_id = ? ";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, user.getUserPhone());
+			psmt.setString(2, user.getUserId());
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}return false;
+		
+	}
+	public boolean nameModify(User user) {
+		conn = DAO1.getConn();
+		sql = "UPDATE users " + 
+				"SET user_name = ? " + 
+				"WHERE user_id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, user.getUserName());
+			psmt.setString(2, user.getUserId());
+			int r = psmt.executeUpdate();
+		    if(r>0) {
+		    	return true;
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}return false;
+		
+	}
+	public boolean nicModify(User user) {
+		conn  =DAO1.getConn();
+		sql = "UPDATE users " + 
+				"SET user_nic = ? " + 
+				"WHERE user_id = ?";
+	
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, user.getUserNic());
+			psmt.setString(2, user.getUserId());
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			} 
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}return false;
+		
+	}
 	
 }

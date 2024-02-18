@@ -118,14 +118,13 @@ public class BoardDAO {
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 			Board board  = new Board();
-			Dabs dabs = new Dabs();
 			board.setBoardNo(rs.getInt("board_no"));
 			board.setBoardTitle(rs.getString("board_title"));
 			board.setBoardCon(rs.getString("board_con"));
 			board.setUserId(rs.getString("user_id"));
 			board.setUserNic(rs.getString("user_nic"));
 			board.setBoardDate(rs.getDate("board_date"));
-			dabs.setUserId(rs.getString("user_id"));
+			board.setUserId(rs.getString("user_id"));
 			board.setCate(rs.getString("cate"));
 			list.add(board);
 			

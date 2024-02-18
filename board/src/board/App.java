@@ -100,7 +100,7 @@ public class App {
 		} // 로그인 아예 끝
 		if (run == false) {// 접속
 			while (ru) {
-				System.out.println("1.게시글 목록 2.게시글 등록 3.검색 4.본인회원정보조회 5.회원정보 수정");
+				System.out.println("1.게시글 목록 2.게시글 등록 3.검색 4.본인회원정보조회 5.자기가 쓴 글 조회");
 				System.out.print("선택");
 				menu = scn.nextInt();
 				scn.nextLine();
@@ -161,7 +161,7 @@ public class App {
 								int dap = scn.nextInt();
 								scn.nextLine();
 								if (dap == 1) { // 댓글 만들기
-									
+
 									System.out.print("\n 해당 아이디 \n");
 									String id1 = scn.nextLine();
 									System.out.println("댓글을 입력하세요");
@@ -245,7 +245,8 @@ public class App {
 									break;
 								}
 							}
-						page = 1;}
+							page = 1;
+						}
 					} // case 1문 전체 끝
 					break;
 				case 2:// 게시글 작성
@@ -319,7 +320,7 @@ public class App {
 								int dap = scn.nextInt();
 								scn.nextLine();
 								if (dap == 1) { // 댓글 만들기
-									
+
 									System.out.print("\n 해당 아이디 \n");
 									String id1 = scn.nextLine();
 									System.out.println("댓글을 입력하세요");
@@ -406,40 +407,123 @@ public class App {
 					break;
 
 				case 4:// 정보 조회
+					List<User> list = null ;
 					int cnt = 0;
-					while (true) {
+					String id1 = null;
+					String pw = null;
+					boolean good = true;
+					while (good) {
 						System.out.println("id를 입력하세요");
-						id = scn.nextLine();
+						id1 = scn.nextLine();
 						System.out.println("pw를 입력하세요");
-						String pw = scn.nextLine();
-						List<User> list = udao.userInf(id, pw);
+						pw = scn.nextLine();
+						list = udao.userInf(id1, pw);
 
-						try {
-							if (udao.userInf(id, pw) == null) {
-								System.out.println("회원정보가 맞지 않습니다");
-								cnt++;
-								if (cnt == 3) {
-									System.out.println("3회초과하여 프로그램이 종료됩니다");
-									break;
-								}
-							} else {
-								System.out.println("아이디   비밀번호    연락처      이름    가입일자   닉네임");
-								System.out.println("============================================");
-								for (User user : list) {
-									System.out.println(user.getUserId() + " " + user.getUserPw() + " "
-											+ user.getUserPhone() + " " + user.getUserName() + "   "
-											+ user.getUserDate() + " " + user.getUserNic() + " ");
-
-								}
+						if (udao.userInf(id1, pw) == null) {
+							System.out.println("회원정보가 맞지 않습니다");
+							cnt++;
+							if (cnt == 3) {
+								System.out.println("3회초과하여 프로그램이 종료됩니다");
+								good = false;
+								
 							}
-						} catch (NullPointerException e) {
-							System.out.println("아");
-
+						}else if (!id.equals(id1)) {
+							System.out.println("로그인하신 정보와 입력하신 정보하신 정보가 다릅니다");
+							cnt++;
+						}else if(udao.userInf(id1, pw) != null) {
+							break;
 						}
-						break;
+						
 					}
-				}// case 6 끝)
-			}
-		}
-	}
-}
+					while (good) {
+						
+							System.out.println("아이디   비밀번호    연락처      이름    가입일자   닉네임");
+							System.out.println("============================================");
+							for (User user : list) {
+								System.out.println(user.getUserId() + " " + user.getUserPw() + " " + user.getUserPhone()
+										+ " " + user.getUserName() + "   " + user.getUserDate() + " "
+										+ user.getUserNic() + " ");
+
+							}
+						
+
+						System.out.println("(회원정보 수정 1) (종료 2)");
+
+						int modify = Integer.parseInt(scn.nextLine());
+						if (modify == 1) {
+							System.out.println("수정할 목록을 말씀해주세요");
+							System.out.println("1.비밀번호 2.연락처 3.이름  4.닉네임");
+							int choice = Integer.parseInt(scn.nextLine());
+							if (choice == 1) {
+								System.out.println("수정 할 비밀번호를 입력해주세요");
+								String pw1 = scn.nextLine();
+								User user = new User();
+								user.setUserId(id1);
+								user.setUserPw(pw1);
+
+								if (udao.pwModify(user)) {
+									System.out.println("변경완료되었습니다");
+								} else {
+									System.out.println("변경이 불가합니다.");
+								}
+							} else if (choice == 2) {
+								System.out.println("수정 할 연락처를 입력해주세요");
+								String phone = scn.nextLine();
+								User user = new User();
+								user.setUserId(id1);
+								user.setUserPhone(phone);
+
+								if (udao.phoneModify(user)) {
+									System.out.println("변경완료되었습니다");
+								} else {
+									System.out.println("변경이 불가합니다.");
+								}
+								
+							} else if (choice == 3) {
+								System.out.println("수정 할 이름을 입력해주세요");
+								String name = scn.nextLine();
+								User user = new User();
+								user.setUserId(id1);
+								user.setUserName(name);
+
+								if (udao.nameModify(user)) {
+									System.out.println("변경완료되었습니다");
+								} else {
+									System.out.println("변경이 불가합니다.");
+								}
+								
+
+							} else if (choice == 4) {
+								System.out.println("수정 할 닉네임을 입력해주세요");
+								String nic = scn.nextLine();
+								User user = new User();
+								user.setUserId(id1);
+								user.setUserNic(nic);
+
+								if (udao.nicModify(user)) {
+									System.out.println("변경완료되었습니다");
+								} else {
+									System.out.println("변경이 불가합니다.");
+								}
+								
+
+							}else {
+								System.out.println("정확한 입력을 해주세요");
+							}
+							
+						} else if (modify == 2) {
+							System.out.println("종료하겠습니다");
+							break;
+						} else {
+							System.out.println("정확한 임력값을 넣어주세요");
+						}
+
+					}break;// case 4 끝) 
+//				case 5:
+//					
+//					break//case 5 끝
+				}
+			} // 게시판 while문 끝
+		} // 게시판 메서드 if 끝
+	}// 메인메소드끝
+}// 클래스끝

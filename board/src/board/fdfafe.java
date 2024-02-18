@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class App {
+public class fdfafe {
 	public static void main(String[] args) {
     Scanner scn = new Scanner(System.in);
 	SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
