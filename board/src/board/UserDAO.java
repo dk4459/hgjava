@@ -11,6 +11,8 @@ import java.util.List;
 public class UserDAO {
 	Connection conn; 
 	PreparedStatement psmt;
+	PreparedStatement psmt1;
+	PreparedStatement psmt2;
 	ResultSet rs; 
 	String sql;
 	
@@ -219,4 +221,45 @@ public class UserDAO {
 		
 	}
 	
+	//회원탈퇴
+	public boolean removeUser(String id , String pw) {
+		conn = DAO1.getConn();
+		sql ="DELETE dabs\r\n"
+				+ "WHERE user_id = (SELECT user_id\r\n"
+				+ "                 FROM users\r\n"
+				+ "                 WHERE user_id = ?\r\n"
+				+ "                 AND user_pw = ?);";
+		String sql1 = "DELETE boards\r\n"
+				+ "WHERE user_id = (SELECT user_id\r\n"
+				+ "                 FROM users\r\n"
+				+ "                 WHERE user_id = '?'\r\n"
+				+ "                 AND user_pw = '?')";
+		String sql2=  "DELETE users "
+				+ "				+ \"WHERE user_id = (SELECT user_id "
+				+ "	            FROM users "
+				+ "				WHERE user_id = '?' "
+				+ "	             AND user_pw = '?')";		
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			psmt.executeUpdate();	
+			psmt1 = conn.prepareStatement(sql1);
+			psmt1.setString(1, id);
+			psmt1.setString(2, pw);
+			psmt1.executeUpdate();
+			psmt2 = conn.prepareStatement(sql2);
+			psmt2.setString(1, id);
+			psmt2.setString(2, pw);
+			int r = psmt2.executeUpdate();
+			if (r >0) {
+				return true;
+			}
+		}catch (SQLException e) {
+			System.out.println("입력한 값이 맞지 않습니다.");	
+		}
+		
+		return false;
+	}
 }

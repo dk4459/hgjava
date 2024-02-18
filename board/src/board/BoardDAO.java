@@ -46,7 +46,7 @@ public class BoardDAO {
 				+ "      FROM "
 				+ "          (Select * "
 				+ "           FROM boards "
-				+ "           WHERE cate = NVL(?,'유머') "
+				+ "           WHERE cate = NVL(?,'자유') "
 				+ "           ORDER BY board_date DESC) a) b join users u "
 				+ "                                    ON (b.user_id = u.user_id) "
 				+ "WHERE b.rn >  ( ? - 1 ) *5 "
@@ -279,5 +279,52 @@ public class BoardDAO {
 		return false;
     }  
     	
+  //자기글 조회
+  		public List<Board> getMyList(String id, int page){
+  			conn = DAO1.getConn();
+  			List<Board> list = new ArrayList<>();
+  			sql = "select   b.board_no   , \r\n"
+  					+ "         b.board_title , \r\n"
+  					+ "         b.board_con , \r\n"
+  					+ "             u.user_id, \r\n"
+  					+ "		     u.user_nic , \r\n"
+  					+ "			     b.board_date , \r\n"
+  					+ "			     b.cate \r\n"
+  					+ "				from \r\n"
+  					+ "			     (Select rownum rn, a.* \r\n"
+  					+ "			    FROM \r\n"
+  					+ "		         (Select * \r\n"
+  					+ "			         FROM boards \r\n"
+  					+ "		         WHERE user_id = ? \r\n"
+  					+ "		         ORDER BY board_date DESC) a) b join users u \r\n"
+  					+ "			                                  ON (b.user_id = u.user_id) \r\n"
+  					+ "				WHERE b.rn >  ( ? - 1 ) *5 \r\n"
+  					+ "				And   b.rn <= ? * 5  ";
+  			
+  			try {
+  				psmt = conn.prepareStatement(sql);
+  				psmt.setString(1, id);
+  				psmt.setInt(2, page);
+  				psmt.setInt(3, page);
+  				rs = psmt.executeQuery();
+  				while(rs.next()) {
+  				Board board  = new Board();
+  				board.setBoardNo(rs.getInt("board_no"));
+  				board.setBoardTitle(rs.getString("board_title"));
+  				board.setBoardCon(rs.getString("board_con"));
+  				board.setUserId(rs.getString("user_id"));
+  				board.setUserNic(rs.getString("user_nic"));
+  				board.setBoardDate(rs.getDate("board_date"));
+  				board.setCate(rs.getString("cate"));
+  				list.add(board);
+  				
+  				}
+  			}catch(SQLException e) {
+  				
+  			}finally {
+  				disconn();
+  			}
+  			return list;
+  		}
     
 }
