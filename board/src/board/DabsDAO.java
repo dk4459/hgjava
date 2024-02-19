@@ -66,7 +66,8 @@ public class DabsDAO {
 				"       board_no, " + 
 				"        dap " + 
 				"        FROM dabs  " + 
-				"        WHERE Board_no = ?";
+				"        WHERE Board_no = ?"
+				+ "      Order by dab_date DESC ";
 		try {
 		
 		

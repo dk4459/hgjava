@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class User {
 	private int userNum = 0 ;
-	private String userId ;
-	private String userPw ;
-	private String userPhone ;
-	private String userName;
-	private Date userDate ;
-	private String userNic ;
+	private String userId ="";
+	private String userPw ="";
+	private String userPhone ="";
+	private String userName ="";
+	private Date userDate;
+	private String userNic ="";
 	
 	public User() {
 		

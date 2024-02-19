@@ -12,6 +12,7 @@ import java.util.List;
 public class BoardDAO {
 	Connection conn; 
 	PreparedStatement psmt;
+	PreparedStatement psmt1;
 	ResultSet rs;
 	String sql;
 	
@@ -257,18 +258,27 @@ public class BoardDAO {
     //게시글 삭제
     public boolean removeBoard(int no, String id) {
     	conn= DAO1.getConn();
-    	sql ="DELETE boards\r\n"
+    	String sql1 = "DELETE dabs "
+    			+ "WHERE board_no = ? "
+    			+ "OR user_id = ?  ";
+    	sql ="DELETE boards "
     		+ "WHERE board_no = ?"
-    		+ "AND user_id = ?";
-    	
+    		+ "AND user_id = ? ";
     	 try {
+    		psmt1 = conn.prepareStatement(sql1);
+    		psmt1.setInt(1, no);
+    		psmt1.setString(2, id);
+    		
+    		int e = psmt1.executeUpdate();
 			psmt =conn.prepareStatement(sql);
 			psmt.setInt(1, no);
 			psmt.setString(2, id);
 			
 			int r =psmt.executeUpdate();
-			if(r>0) {
+			if(e<2) {
+			   if(r>0) {
 				return true;
+			   }
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

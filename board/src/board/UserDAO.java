@@ -34,7 +34,7 @@ public class UserDAO {
 	//회원가입
 	public boolean userAdd(User user) {
 		conn = DAO1.getConn();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		sql = "INSERT INTO users(user_num,"
 				+ "                   user_id,"
 				+ "                   user_pw,"
@@ -42,6 +42,7 @@ public class UserDAO {
 				+ "                   user_name,"
 				+ "                   user_nic)"
 				+ "VALUES          (user_seq.nextval,?,?,?,?,?)";
+		
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, user.getUserId());
@@ -54,12 +55,43 @@ public class UserDAO {
 			if(r>0) {
 				return true;
 			}
-		}catch(SQLException e) {
-			e.printStackTrace();
+			
+		}catch(Exception e) {
+		    e.printStackTrace();
 		}finally {
 			disconn();
 		}
 		return false;
+	}
+	//회원가입 중복값 확인 
+	public int check(User user) {
+		conn = DAO1.getConn();
+		sql = "SELECT user_id,user_pw,user_phone,user_name,user_nic\r\n"
+				+ "FROM users "
+				+ "WHERE user_id = ? "
+				+ "OR user_phone = ? "
+				+ "OR user_nic = ? ";
+				try {
+					psmt = conn.prepareStatement(sql);
+					psmt.setString(1, user.getUserId());
+					psmt.setString(2, user.getUserPhone());
+					psmt.setString(3,user.getUserNic());
+					rs = psmt.executeQuery();
+					if(rs.next()) {
+						if(rs.getString("user_id").equals(user.getUserId())) {
+							return 0;
+						}else if(rs.getString("user_phone").equals(user.getUserPhone())) {
+							return 1;
+						}else if (rs.getString("user_nic").equals(user.getUserNic())) {
+							return 2;
+						}
+						
+					}
+					
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+				return -1;
 	}
      //로그인
 	public int  login(String id, String pw) {
@@ -224,49 +256,54 @@ public class UserDAO {
 	//회원탈퇴
 	public boolean removeUser(String id , String pw) {
 		conn = DAO1.getConn();
-		sql ="DELETE dabs\r\n"
-				+ "WHERE user_id = (SELECT user_id "
-				+ "                 FROM users "
-				+ "                 WHERE user_id = ?  "
-				+ "                 AND user_pw = ?)";
-		String sql1 = "DELETE boards\r\n"
-				+ "WHERE user_id = (SELECT user_id "
-				+ "                 FROM users "
-				+ "                 WHERE user_id = ? "
-				+ "                 AND user_pw = ?)";
-		String sql2=  "DELETE users "
-				+ "		WHERE user_id = (SELECT user_id "
-				+ "	    FROM users "
-				+ "	    WHERE user_id = ? "
-				+ "	    AND user_pw = ?)";		
+		sql ="INSERT INTO removes(user_id) "
+				+ "   (SELECT (user_id) "
+				+ "    FROM users "
+				+ "    WHERE user_id = ? "
+				+ "    AND user_pw = ?) ";
+			
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			psmt.setString(2, pw);
-			int e =psmt.executeUpdate();	
+			int r =psmt.executeUpdate();	
 			
-			psmt1 = conn.prepareStatement(sql1);
-			psmt1.setString(1, id);
-			psmt1.setString(2, pw);
-			int w = psmt1.executeUpdate();
+		
 			
-			psmt2 = conn.prepareStatement(sql2);
-			psmt2.setString(1, id);
-			psmt2.setString(2, pw);
-			int r = psmt2.executeUpdate();
-			if(e<2) {
-				if(w<2) {
-					if (r >0) {
+			if (r >0) {
 						return true;
-					}
-				}
 			}
+			
 		}catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("입력한 값이 맞지 않습니다.");	
 			
 		}
 		
+		return false;
+	}
+	//회원탈퇴 조회
+	public boolean removeSerch(String id) {
+		conn = DAO1.getConn();
+		sql = "SELEcT * "
+				+ "FROM removes "
+				+ "Where user_id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString("user_id").equals(id)) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 		return false;
 	}
 }
