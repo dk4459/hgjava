@@ -48,7 +48,7 @@ public class BoardDAO {
 				+ "          (Select * "
 				+ "           FROM boards "
 				+ "           WHERE cate = NVL(?,'자유') "
-				+ "           ORDER BY board_date DESC) a) b join users u "
+				+ "           ORDER BY board_no DESC) a) b join users u "
 				+ "                                    ON (b.user_id = u.user_id) "
 				+ "WHERE b.rn >  ( ? - 1 ) *5 "
 				+ "And   b.rn <= ? * 5 ";
@@ -83,7 +83,7 @@ public class BoardDAO {
     	conn = DAO1.getConn();
     	sql = "select count(*) as cnt "
     			+ " from boards " 
-    			+" where cate = nvl(?,'유머') ";
+    			+" where cate = nvl(?,'자유') ";
     	try {
     		psmt = conn.prepareStatement(sql);
     		psmt.setString(1, cate);
@@ -293,11 +293,11 @@ public class BoardDAO {
   		public List<Board> getMyList(String id, int page){
   			conn = DAO1.getConn();
   			List<Board> list = new ArrayList<>();
-  			sql = "select   b.board_no   , \r\n"
-  					+ "         b.board_title , \r\n"
-  					+ "         b.board_con , \r\n"
+  			sql = "select     b.board_no   , \r\n"
+  					+ "           b.board_title , \r\n"
+  					+ "           b.board_con , \r\n"
   					+ "             u.user_id, \r\n"
-  					+ "		     u.user_nic , \r\n"
+  					+ "		        u.user_nic , \r\n"
   					+ "			     b.board_date , \r\n"
   					+ "			     b.cate \r\n"
   					+ "				from \r\n"

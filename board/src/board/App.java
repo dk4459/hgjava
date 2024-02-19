@@ -1,7 +1,6 @@
 package board;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,9 +38,30 @@ public class App {
 						if (udao.login(id, pw) == 0) {
 							if (udao.removeSerch(id) == true) {
 								System.out.println("회원탈퇴한 계정입니다.");
+								System.out.println("탈퇴를 풀고 싶으시면 yes 나가실려면 no");
+								String yes = scn.nextLine();
+								if(yes.equalsIgnoreCase("yes")) {
+									while(true){
+									System.out.println("아이디를 입력하세요");
+									String id5 = scn.nextLine();
+									System.out.println("비밀번호를 입력하세요");
+									String pw5 = scn.nextLine();
+									if(udao.removeCancel(id5, pw5)) {
+										System.out.println("다시 입력이 가능해졌습니다.");
+										break;
+									}else {
+										System.out.println("아이디 비밀번호가 맞지 않습니다 다시 입력하세요");
+										continue;
+									}
+									}
+								}else {
+									break;
+								}
+								
 								break;
 							}
 							System.out.println("환영합니다");
+							ru = true;
 							run = false;
 
 						} else if (udao.login(id, pw) == -1) {
@@ -322,19 +342,39 @@ public class App {
 						} // case 1문 전체 끝
 						break;
 					case 2:// 게시글 작성
+						String title = "";
+						String con = "";
+						while(true) {
 						System.out.println("글 제목을 입력하세요");
-						String title = scn.nextLine();
-						System.out.println("내용을입력하세요");
-						String con = scn.nextLine();
+						 title = scn.nextLine();
+						if(title.equals("")) {
+							
+						}else {
+							break;
+						}
+						}
+						while(true) {
+						 System.out.println("내용을입력하세요");
+						 con = scn.nextLine();
+						 if(con.equals("")) {
+							
+						 }else {
+							 break;
+						 }
+						}
 						System.out.println("해당 카테고리를 입력하세요");
 						String cate1 = scn.nextLine();
+						if(cate1.equals("")){
+							cate1 = "자유";
+						}
+					    if(!title.equals("")&&!con.equals("")) {
 						Board board = new Board(id, title, con, cate1);
-
 						if (bdao.insertBoard(board)) {
 							System.out.println("정상등록");
 						} else {
 							System.out.println("등록에러");
 						}
+					    }
 						break;
 
 					case 3: // 검색

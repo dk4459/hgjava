@@ -306,4 +306,27 @@ public class UserDAO {
 		}
 		return false;
 	}
+	//회원탈퇴 풀기
+	public boolean removeCancel(String id, String pw) {
+		conn = DAO1.getConn();
+		sql =   " DELETE removes "
+				+ "WHERE user_id = (Select user_id"
+				+ "                 FROM users"
+				+ "                 WHERE user_id =  ? "
+				+ "                 AND   user_pw = ?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
