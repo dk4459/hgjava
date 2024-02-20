@@ -846,12 +846,13 @@ public class App {
 								System.out.println("정상적으로 회원탈퇴하였습니다 다음에 또 찾아주세요");
 								run = true;
 								ru = false;
+							}
 							} else if (!overId.equals(id)) {
 								System.err.println("회원정보가 맞지 않습니다.");
 							} else {
 								System.out.println("안됌");
 							}
-						}
+						
 						break;
 					case 7: // 로그아웃
 						System.out.println("로그아웃 하셨습니다. 감사합니다");
