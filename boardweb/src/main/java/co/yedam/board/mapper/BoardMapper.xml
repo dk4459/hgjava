@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace= "co.yedam.board.mapper.BoardMapper"> <!-- 클래스이름이라 생각하면됨 -->
+	<select id ="boardList" resultType = "board" parameterType="search">
+	    	SELECT  rn,
+	    	        board_no,
+	    	        title,
+	    	        content,
+	    	        writer,
+	    	        view_cnt,
+	    	        create_date
+	    	FROM
+	    	        (SELECT /*+ *INDEX_DESC(b board_pk)*/ rownum rn, b.*
+	    	        FROM tbl_board b
+	    	        <where>
+	    	        <choose>
+	    	           <when test = "searchCondition == 'T'.toString() ">  <!-- if문과 같음 -->
+	    	           and title like '%'||#{keyword}||'%'
+	    	           </when>
+	    	           <when test = "searchCondition == 'W'.toString()">
+	    	           and writer like '%' ||#{keyword}||'%'
+	    	           </when>
+	    	           <when test = "searchCondition == 'TW'.toString()">
+	    	           and (title like '%' ||#{keyword}||'%' or writer like '%' ||#{keyword}||'%') 
+	    	           </when>
+	    	        </choose>
+	    	        <![CDATA[
+	    	        and rownum <= (#{page} *5)
+	    	        ]]>
+	    	        </where> 
+	    	        ) a
+	    	WHERE a.rn> (#{page} -1) * 5
+	
+	</select>
+	
+	<select id = "getTotalCnt" resultType = "int">
+	  select count(*)
+	  from tbl_board
+	   <where> 
+	    	        <choose>
+	    	           <when test = "searchCondition == 'T'.toString() ">  <!-- if문과 같음 -->
+	    	           title like '%'||#{keyword}||'%'
+	    	           </when>
+	    	           <when test = "searchCondition == 'W'.toString()">
+	    	           writer like '%' ||#{keyword}||'%'
+	    	           </when>
+	    	           <when test = "searchCondition == 'TW'.toString()">
+	    	           (title like '%' ||#{keyword}||'%' or writer like '%' ||#{keyword}||'%') 
+	    	           </when>
+	    	        </choose>
+					</where>
+	</select>
+	
+	<select id ="selectBoard" parameterType ="int" resultType="board">
+		select board_no,
+		       title,
+		       content,
+		       writer,
+		       view_cnt,
+		       create_date
+		from tbl_board
+		where board_no = #{bno}
+	</select>
+	
+</mapper>
