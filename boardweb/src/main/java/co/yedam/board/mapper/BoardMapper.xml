@@ -64,4 +64,25 @@
 		where board_no = #{bno}
 	</select>
 	
+	<update id="updateCount" parameterType="int">
+		UPDATE tbl_board
+		set view_cnt = view_cnt+1
+		where board_no = #{bno}
+	</update>
+	
+	<update id ="updateBoard" parameterType="board">
+	     update tbl_board
+         SET title = #{title}
+            ,content = #{content}
+         where board_no = #{boardNo}
+	</update>
+	
+	<delete id ="removeBoard" parameterType="int">
+		delete tbl_board
+        where board_no = #{bno}
+	</delete>
+	<insert id="insertBoard" parameterType="board">
+	  insert into tbl_board(board_no,title,content,writer)
+	  values (board_seq.nextval, #{title},#{content},#{writer})
+	</insert>
 </mapper>

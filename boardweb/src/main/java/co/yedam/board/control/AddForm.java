@@ -1,4 +1,4 @@
-package co.yedam.common;
+package co.yedam.board.control;
 
 import java.io.IOException;
 
@@ -6,12 +6,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Bcontrol implements Control {
+import co.yedam.common.Control;
+
+public class AddForm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("B컨트롤이 실행되었습니다.");
+        
+		String path = "WEB-INF/view/addForm.jsp";
+		req.getRequestDispatcher(path).forward(req, resp);
+		
 	}
 
 }
