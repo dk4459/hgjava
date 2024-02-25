@@ -4,7 +4,7 @@
 <jsp:include page="../../includes/header.jsp"></jsp:include>
 
 <c:if test="${!empty message }">
-   <p>${message } </p>
+   <p style="color: red;">${message }</p>
  </c:if>
 <form action="login.do" method="post">
    <table class ="table">
