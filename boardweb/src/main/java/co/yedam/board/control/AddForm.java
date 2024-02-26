@@ -13,7 +13,7 @@ public class AddForm implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-		String path = "WEB-INF/view/addForm.jsp";
+		String path = "board/addForm.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 		
 	}

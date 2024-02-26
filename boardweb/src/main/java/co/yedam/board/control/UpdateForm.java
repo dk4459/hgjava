@@ -23,7 +23,7 @@ public class UpdateForm implements Control {
 		
 		req.setAttribute("board", board);
 		
-		String path = "WEB-INF/view/updateForm.jsp";
+		String path = "board/updateForm.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 		
 	}

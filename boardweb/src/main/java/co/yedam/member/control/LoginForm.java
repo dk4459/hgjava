@@ -12,7 +12,7 @@ public class LoginForm implements Control{
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-		String path = "WEB-INF/view/loginForm.jsp";
+		String path = "board/loginForm.tiles"; //web-inf/view/loginForm.jsp
 		req.getRequestDispatcher(path).forward(req, resp);
 		
 	}

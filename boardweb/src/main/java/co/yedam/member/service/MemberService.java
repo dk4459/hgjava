@@ -4,4 +4,7 @@ import co.yedam.member.Member;
 
 public interface MemberService {
         Member loginCheck(Member member);
+        //회원가입
+        boolean addMember(Member member);
 }
+  

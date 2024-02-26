@@ -1,7 +1,6 @@
 <%@page import="co.yedam.board.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../includes/header.jsp"></jsp:include>
   <%
       Board board = (Board)request.getAttribute("board");
     %>
@@ -29,10 +28,9 @@
 	   </tr>
 	   <tr>
 	      <td colspan="4" align="center">
-	        <button type="submit" class ="btn btn-primary">저장</button>
-	        <button type="reset" class ="btn btn-secondary">취소</button>
+	        <button type="submit" class ="btn btn-primary"${board.writer eq logid ? '' : 'disabled' }>저장</button>
+	        <button type="reset" class ="btn btn-secondary"${board.writer eq logid ? '' : 'disabled' }>취소</button>
 	      </td>
 	   </tr>	
 	  </table>
 	</form>
-<jsp:include page="../includes/footer.jsp"></jsp:include>

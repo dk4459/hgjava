@@ -32,7 +32,7 @@ public class ModifyBoard implements Control {
 			resp.sendRedirect("boardList.do"); //★포워딩은 파라메타 값을 넘겨줄 수 있고 sendredirect는 파라메타값을 넘겨줄수 없음★
 		}else {
 			req.setAttribute("message", "수정중 에러가 발생했습니다.");
-			String path = "WEB-INF/view/error.jsp";
+			String path = "board";
 			req.getRequestDispatcher(path).forward(req, resp);
 		}
 	}

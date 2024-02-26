@@ -9,8 +9,20 @@
 	           name,
 	           auth
 	     from tbl_member
-	     where id = #{id}
-	     and   pw = #{pw}
+	     where id = #{id }
+	     and   pw = #{pw }
 	</select>
 	
+	<select id="listMember" parameterType="int">
+	select id,
+	       pw,
+	       name,
+	       auth,
+	       image
+	 from tbl_member
+	</select>
+	<insert id="insertMember" parameterType="member">
+	    INSERT INTO tbl_member(id,pw,name, image)
+        values (#{id },#{pw },#{name },#{image })
+	</insert>
 </mapper>

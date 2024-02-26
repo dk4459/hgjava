@@ -31,7 +31,7 @@ public class AddBoard implements Control {
 			resp.sendRedirect("boardList.do");
 		}else {
 			req.setAttribute("message","수정중 에러가 발생했습니다.");
-			String path = "WEB-INF/view/error.jsp";
+			String path = "board/board.tiles";
 			req.getRequestDispatcher(path).forward(req, resp);
 			
 		}

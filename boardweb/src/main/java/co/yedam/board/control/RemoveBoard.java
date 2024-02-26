@@ -25,7 +25,7 @@ public class RemoveBoard implements Control{
     		resp.sendRedirect("boardList.do"); 
     	}else {
     		req.setAttribute("message","수정중에러가발생");
-    		String path = "WEB-INF/vew/error.jsp";
+    		String path = "board/board.tiles";
     		req.getRequestDispatcher(path).forward(req, resp);
     	}
     }  
