@@ -56,7 +56,11 @@ public class FrontController extends HttpServlet{
 	    //회원등록.
 	    controls.put("/addMember.do", new AddMemberControl());
 	    controls.put("/addMemberForm.do", new AddMemberForm());
+	    
+	    //기타
 	    controls.put("/memberList.do", new MemberListForm());
+	    controls.put("/productList.do", new  ProductListControl());
+	    controls.put("/cartList.do", new CartListControl());
 	    
 	}
    //service. 요청할때 마다 실행
