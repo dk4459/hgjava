@@ -8,7 +8,7 @@
 <input type="text" id="name">
 <select id="genderList">
    <option value="Male">남성</option>
-    <option value="Female">여성</option>	
+    <option value="Female" selected>여성</option>	
 </select>
 
 <div id="show">
@@ -23,7 +23,7 @@
            <th>salary</th>
         </tr> --> 
       </thead>
-      <tbody>
+      <tbody >
       <tr>
            <td>101</td>
            <td>first_name</td>

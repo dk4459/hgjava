@@ -35,18 +35,37 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	document.querySelector('#tableList thead').appendChild(tr);
 
 	// tbody 영역.
-	json.forEach(function(item, idx) {  //forEach 반복문에서만 쓸수 있는 반복문
+	
+	json.forEach(function(item, idx) {  //forEach 배열에서만 쓸수 있는 반복문
 		console.log(item, idx);  //item -> {}
-		if (item.gender == 'Female') {
+		var gender1 = document.querySelector('#genderList');
+		console.log(gender1.options[gender1.selectedIndex].value);
+		if (item.gender == gender1.options[gender1.selectedIndex].value) {
 			let tr = document.createElement('tr')
 			for (let prop in item) {
 				let td = document.createElement('td');
+				
+				
 				td.innerText = item[prop];
 				tr.appendChild(td);
+				
 			}
-		document.querySelector('#tableList tbody').appendChild(tr);
 		}
+		gender1.addEventListener("change", () => {
+			if (item.gender == gender1.options[gender1.selectedIndex].value) {
+				let tr = document.createElement('tr')
+				for (let prop in item) {
+					let td = document.createElement('td');
+					
+					td.innerText = item[prop];
+					tr.appendChild(td);
+					
+				}
+			document.querySelector('#tableList tbody').appendChild(tr);
+			}
+		});
+	
 	});
+	
 });
-
 
