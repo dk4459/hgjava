@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p>Hello</p>
+	
+	<input type="text" id="name">
+	<button class="btn" >클릭</button>
+	
+	<ul id="list">
+		<li>김민수 <button>삭제</button></li>
+		<li>황인만 <button>삭제</button></li>
+	</ul>
+	
+	<H3>학생추가</H3>
+	<table border ="1" id="stdTable">
+			<tr>
+				<th>학생번호</th><td><input type="number" id="sno"></td>
+			</tr>	
+				<th>학생이름</th><td><input type="text" id="sname"></td>
+			<tr>
+				<th>학생점수</th><td><input type="number" id="score"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button id="addBtn">등록</button>
+					<button id="editBtn">수정</button>
+				</td>
+			</tr>
+	</table>
+	</br>
+	
+	<H3>학생목록</H3>
+	<table border ="1" id="tlist">
+		<tbody id="studlist">
+			<tr>
+				<th>학생번호</th>
+				<th>이름</th>
+				<th>점수</th>
+				<th>삭제</th>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<script>
+	let str = "hello";
+	str = 10;
+	str = {
+			name : "홍길동",
+			age : 20,
+			showInfo : function () {
+				return '이름은 ' + this.name + ', 나이는' + this.age;
+			}
+	}
+	//자바에서의 인스턴스가, 자바스크립트에서는 오브젝트임.
+	//속성 확인
+	for(let prop in str){
+		console.log(prop, str[prop])
+	}
+	
+	str = ["홍길동", "김민수", 20]
+	//배열
+	for(let val of str){
+		console.log(val);
+	}
+	
+	str = [
+		{sno: 101, sname: "강동원", score: 90},
+		{sno: 102, sname: "최원영", score: 90},
+		{sno: 103, sname: "전영재", score: 88}
+
+	]
+	
+	for(let student of str) {
+		//let prop = 'score';
+		//console.log(student.sno, student['sname'], student[prop] );
+		for(let prop in student){
+			console.log(`${prop} : ${student[prop]}`); // ``를 쓰면, + 등의 요소를 생략 가능하다고 함.
+		}
+	}
+	console.log(str[0]['score']) //str[0].score 과 같은 결과, 단 가변성 있음
+	console.log(str[0], typeof str[2]);
+	</script>
+	<script src = "script.js"></script>
+</body>
+</html>
