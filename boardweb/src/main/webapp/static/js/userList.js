@@ -45,14 +45,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			for (let prop in item) {
 				let td = document.createElement('td');
 				
-				
 				td.innerText = item[prop];
 				tr.appendChild(td);
 				
 			}
 		}
-		gender1.addEventListener("change", () => {
+		   gender1.addEventListener("change", () => {
+			   let ttbody = document.querySelector('#tbody')
 			if (item.gender == gender1.options[gender1.selectedIndex].value) {
+				ttbody.removeChild(ttbody.firstChild);
 				let tr = document.createElement('tr')
 				for (let prop in item) {
 					let td = document.createElement('td');
