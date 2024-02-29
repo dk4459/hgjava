@@ -23,4 +23,5 @@ public class MemberServiceImpl implements MemberService{
 	public Member listMember(Member member){
        return mapper.listMember(member);
 	}
+    
 }

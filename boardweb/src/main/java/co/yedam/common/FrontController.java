@@ -14,10 +14,13 @@ import co.yedam.board.control.AddBoard;
 import co.yedam.board.control.AddForm;
 import co.yedam.board.control.BoardControl;
 import co.yedam.board.control.BoardListControl;
+import co.yedam.board.control.BookListControl;
 import co.yedam.board.control.ModifyBoard;
 import co.yedam.board.control.RemoveBoard;
+import co.yedam.board.control.RemoveBookControl;
 import co.yedam.board.control.RemoveForm;
 import co.yedam.board.control.UpdateForm;
+import co.yedam.board.control.addBookControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.LoginControl;
@@ -64,11 +67,17 @@ public class FrontController extends HttpServlet{
 	    
 	    //자바스크립트 연습
 	    controls.put("/userList.do", new UserListControl());
+	    //ajax 연습
+	    controls.put("/bookList.do", new BookListControl());
+	    controls.put("/addBook.do", new addBookControl());
+	    controls.put("/removeBook.do", new RemoveBookControl());
 	}
    //service. 요청할때 마다 실행
 	@Override
 		protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		 String uri = req.getRequestURI();  //현재페이지의 uri
+		req.setCharacterEncoding("utf-8");
+		
+		String uri = req.getRequestURI();  //현재페이지의 uri
 		 String context = req.getContextPath();  //어플리케이션
 		 String path = uri.substring(context.length());
 		 Control control = controls.get(path);
