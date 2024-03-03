@@ -99,9 +99,13 @@
 	   insert into tbl_book
 	   values (#{bookCode},#{bookName},#{author},#{press},#{price})
 	</insert>
-	
+	<!-- 삭제 -->
 	<delete id="removeBook" parameterType="co.yedam.board.Book">
-	    DELETE tbl_book
-        WHERE book_code like #{bookCode}
-	</delete>
+    DELETE tbl_book
+    <where>
+        <if test="bookCode != null">
+            AND book_code = #{bookCode, jdbcType=VARCHAR}
+        </if>
+    </where>
+</delete>
 </mapper>
