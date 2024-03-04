@@ -27,6 +27,10 @@ import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
 import co.yedam.member.control.MemberListForm;
+import co.yedam.reply.control.AddReplyControl;
+import co.yedam.reply.control.RemoveReplyControl;
+import co.yedam.reply.control.ReplyListControl;
+import co.yedam.reply.control.ReplyTotalCount;
 
 //init -> service -> destroy.
 public class FrontController extends HttpServlet{
@@ -71,6 +75,11 @@ public class FrontController extends HttpServlet{
 	    controls.put("/bookList.do", new BookListControl());
 	    controls.put("/addBook.do", new addBookControl());
 	    controls.put("/removeBook.do", new RemoveBookControl());
+	    //댓글관련
+	    controls.put("/replyList.do", new ReplyListControl());
+	    controls.put("/removeReply.do", new RemoveReplyControl());
+	    controls.put("/addReply.do" , new AddReplyControl());
+	    controls.put("/getTotal.do", new ReplyTotalCount());
 	}
    //service. 요청할때 마다 실행
 	@Override
