@@ -8,7 +8,8 @@ function pagingFunc(){
         .forEach(item =>{
 			item.addEventListener('click', function (e){
 			 e.preventDefault(); //a href링크의 기능을 차단.
-			 page = item.innerText; //page로 사용
+			 //page = item.innerText; //page로 사용
+			 page= parseInt(item.dataset.page);
 			 replyList(page);	//링크를 클릭할때마다 목록을 새롭게 그리고
 			 pageList();   //페이지목록을 새롭게 그리고
 			})
@@ -29,7 +30,6 @@ function addReplyFnc(e){
 		   alert('정상적으로 등록 되었습니다.');
 		   document.querySelector('.reply ul').appendChild(makeRow2(result.retVal));//AddReplyControl클래스에서 retVal을 갖고와서 조회한다.
 	       document.querySelector('#reply').value= '';
-	       page = item.innerText; //page로 사용
 		   replyList(page);	//링크를 클릭할때마다 목록을 새롭게 그리고
 		   pageList();   //페이지목록을 새롭게 그리고
 	   }else if(result.recode =='NG'){
@@ -83,7 +83,7 @@ function makeRow2(obj={}){
 function deleteRow(e) {
     let rno = this.parentElement.parentElement.dataset.rno; //한건 조회값 가져오기
     let li = this.parentElement.parentElement;
-    const delHtp = new XMLHttpRequest();
+    const delHtp = new XMLHttpRequest(); // 삭제 요청 시 해당 댓글의 번호를 전송
     delHtp.open('post','removeReply.do');
     delHtp.setRequestHeader('Content-Type','application/x-www-form-urlencoded'); //post방식일때 이런식으로 타입을 맞춰야한다.
     delHtp.send('rno='+rno);   //파라메타값 전달하기 RemoveReplyControl클래스에 가보면 rno로 파라메타값을 설정해놓았기때문에 그 변수 이름을 일치시켜야한다.
@@ -94,7 +94,6 @@ function deleteRow(e) {
 			alert(result.retMsg);
 			li.remove();   //함수를 설정하면 this의 값이 delHtp의 this로 넘어가 밖으로 따로 변수를 지정해 사용하였다.
 		                   //그러고 싶지 않으면 화살표 함수를 이용하면 this의값이 이벤트의 값으로 넘어가 사용이 가능하다
-		   page = item.innerText; //page로 사용
 		   replyList(page);	//링크를 클릭할때마다 목록을 새롭게 그리고
 		   pageList();   //페이지목록을 새롭게 그리고                
 		}else{             
@@ -165,12 +164,19 @@ function pageList(){
 		 let aTag = document.createElement('a');
 		 //aTag.innerText = endPage + 1;
 		 aTag.innerHTML ='&raquo;'//>>
-         aTag.setAttribute('data-page',endPage + 1);
+         aTag.setAttribute('data-page',endPage+1);
 		 aTag.href='#';
-		 
 		 document.querySelector('div.pagination').appendChild(aTag);
+		 
+		/* aTag.addEventListener('click', function (e) {
+             e.preventDefault();
+             page = endPage + 1; // 다음 페이지로 이동
+             replyList(page); // 링크를 클릭할 때마다 목록을 새롭게 그리고
+             pageList(); // 페이지 목록을 새롭게 그리고
+         });*/
 	 }
 	 pagingFunc();//새로 생성된 a에 이벤트 등록.
   }	
 }
+replyList();
 pageList();

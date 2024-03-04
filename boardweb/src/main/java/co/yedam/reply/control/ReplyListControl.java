@@ -24,7 +24,10 @@ public class ReplyListControl implements Control {
         String page = req.getParameter("page");
         
         SearchVO search = new SearchVO();
+        
         search.setBno(Integer.parseInt(bno));
+       
+        
         search.setRpage(Integer.parseInt(page));
         
         
