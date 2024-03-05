@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="show"></div>
+	<script>
+	    var listFunc;  //undefined
+		console.log('javascript/ajax.html')
+		//비동기 방식처리
+
+		/* setTimeout(function() {
+			console.log('hello-1')
+
+			setTimeout(function() {
+				console.log('hello-2')
+
+				setTimeout(function() {
+					console.log('hello-3')
+				}, 2000);
+			}, 3000);
+		}, 1000); */
+		
+	//비동기 방식을 동기식으로 바꾸는 방법	
+	//목록출력
+	
+	fetch('../replyList.do?bno=' + 98 + '&page=' + 1)
+	.then(resolve =>resolve.json())  //문자열 --> 객체. json.parse와 같은역할 (화살표함수)
+	.then(listFunc)
+	.catch(function(err){
+		console.log('error===>',err);
+	})
+	function listFunc(result){    //var는 젤 첫
+        console.log(result);       //[]
+        result.forEach(reply =>{
+    	let li =document.createElement('li');
+    	li.innerText = reply.reply;
+    	document.querySelector('#show').append(li);
+    })
+   }
+	//등록
+	asyncFunc();
+	async function asyncFunc(){
+	try{
+	let prom1 =await fetch('../addReply.do',{
+		method:'post',
+        headers: {
+        	'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'bno=' + 98 + '&reply=' + 'fetch test' + '&replyer=' + 'newbie'
+	});
+	let json1 =await prom1.json()
+	if (json1.ret.code=='Ok'){
+		alert('성공')
+		let prom2 = await fetch('../replyList.do?bno='+86+'&page'+1);
+		let json2 = prom2.json();
+		json2.forEach((reply ,idx, ary) =>{
+			let li = document.createElement('li')
+			li.innerText= reply.replyer;
+			document.querySelector('#show').append(li)
+		})
+	}else{
+		alert('실패')
+	}
+	}catch(err){
+		console.log(err);
+	}
+	}
+	</script>
+</body>
+</html>

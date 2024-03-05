@@ -121,7 +121,7 @@ div.reply li {
 
 	<script>
 	    const bno = "${board.boardNo }";
-	    const replyer = "${logid }";   //login클래스에 세션 setAttribute값과 같아야한다.
+	    const replyer = "${logid }";   //loginControl클래스에 세션 setAttribute값과 같아야한다.
 	    console.log(bno);
 		function removeFunc() {
 			let form = document.querySelector('form');

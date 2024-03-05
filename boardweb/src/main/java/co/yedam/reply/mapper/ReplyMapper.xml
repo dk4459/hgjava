@@ -10,7 +10,7 @@
 	         ,reply
 	         ,replyer
 	         ,reply_date
-     from (select /* +INDEX(r reply_pk)*/rownum rn, r.*
+     from (select /*+INDEX(r reply_pk) */rownum rn, r.*  <!-- 인덱스를 쓸려면 오라클에서 주석처리를 해야만 사용가능함 -->
       FROM tbl_reply r
       WHERE board_no= #{bno} <!-- 인터페이스에서 매개변수로 만들어논 bno를 사용한다 -->
       <![CDATA[
