@@ -10,7 +10,6 @@ let showFields = ['id', 'centerName', 'phoneNumber', 'sido'];
 let tbody = document.querySelector('#list');
 let searchValue = document.querySelector('#keyword').value;
 
-function list(){
 fetch(url)
     .then(resolve => resolve.json())
     .then(result => {
@@ -21,7 +20,6 @@ fetch(url)
                 let td = document.createElement('td');
                 if (field == 'centerName') {
                     td.innerText = center[field].substring('코로나19'.length);
-                    // console.log(td.innerText);
                 } else {
                     td.innerText = center[field];
                 }
@@ -31,7 +29,7 @@ fetch(url)
         });
     })
     .catch(err => console.log(err));
-}
+
 // 조회 이벤트 처리
 function search() {
     let btn = document.querySelector('#searchBtn');
@@ -49,21 +47,18 @@ function searchList() {
             // 기존 데이터 삭제
             tbody.innerHTML = '';
 
-            	if (searchValue === '') {
-                    alert('값을 입력해주세요.');
-                    list();
-                    return;
-                }
-            	let check = false
-            	result.data.forEach(center => {
-            	if (center['sido'] == searchValue) {
-            		 check =true;
-                     let tr = document.createElement('tr');
+            if (searchValue === '') {
+                alert('값을 입력해주세요.');
+                return; // 검색어가 비어 있으면 여기서 함수 종료
+            }
+
+            result.data.forEach(center => {
+                if (center['sido'] == searchValue) {
+                    let tr = document.createElement('tr');
                     showFields.forEach(field => {
-                      let td = document.createElement('td');
+                        let td = document.createElement('td');
                         if (field == 'centerName') {
                             td.innerText = center[field].substring('코로나19'.length);
-                           
                         } else {
                             td.innerText = center[field];
                         }
@@ -72,14 +67,9 @@ function searchList() {
                     tbody.append(tr);
                 }
             });
-            if(!check){
-            	alert('조회된 값이 없습니다.');
-                list();
-            }
         })
         .catch(err => console.log(err));
 }
 
 // 초기화 함수 호출
 search();
-list();

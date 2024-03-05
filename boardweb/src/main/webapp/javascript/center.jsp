@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <label>시도</label><input type="text" name="" id="keyword">
+    <label>시도</label>
+    <input type="text" name="" id="keyword">
     <button id="searchBtn">조회</button>
     <br>
     <div id="show">
