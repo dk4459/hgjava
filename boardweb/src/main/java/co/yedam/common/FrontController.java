@@ -80,6 +80,9 @@ public class FrontController extends HttpServlet{
 	    controls.put("/removeReply.do", new RemoveReplyControl());
 	    controls.put("/addReply.do" , new AddReplyControl());
 	    controls.put("/getTotal.do", new ReplyTotalCount());
+	    
+	    controls.put("/regiserCenter.do",new RegisterCenter());
+	    controls.put("/getSidoInfo.do", new SidoInfoControl());
 	}
    //service. 요청할때 마다 실행
 	@Override

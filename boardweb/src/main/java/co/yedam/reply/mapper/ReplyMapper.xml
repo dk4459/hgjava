@@ -2,49 +2,77 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace= "co.yedam.reply.mapper.ReplyMapper"> <!-- 클래스이름이라 생각하면됨 -->
-	<select id="selectList" parameterType="search" resultType="reply">
-	   
-	 select reply_no
-	         ,board_no
-	         ,reply
-	         ,replyer
-	         ,reply_date
-     from (select /*+INDEX(r reply_pk) */rownum rn, r.*  <!-- 인덱스를 쓸려면 오라클에서 주석처리를 해야만 사용가능함 -->
-      FROM tbl_reply r
-      WHERE board_no= #{bno} <!-- 인터페이스에서 매개변수로 만들어논 bno를 사용한다 -->
+<mapper namespace="co.yedam.reply.mapper.ReplyMapper"> <!-- 클래스이름이라 생각하면됨 -->
+	<select id="selectList" parameterType="search"
+		resultType="reply">
+
+		select reply_no
+		,board_no
+		,reply
+		,replyer
+		,reply_date
+		from (select /*+INDEX(r reply_pk) */rownum rn, r.*  <!-- 인덱스를 쓸려면 오라클에서 주석처리를 
+			해야만 사용가능함 -->
+		FROM tbl_reply r
+		WHERE board_no= #{bno} <!-- 인터페이스에서 매개변수로 만들어논 bno를 사용한다 -->
       <![CDATA[
       AND rownum <= (#{rpage}*5) ) b
       ]]>
-     WHERE b.rn > (#{rpage} -1)*5
+		WHERE b.rn > (#{rpage} -1)*5
 	</select>
-	
-	<insert id="insertReply" parameterType="reply">  <!-- mybatis-config에 설정해놓은 alias를 이용해서 replyType을 이용한다. --> 
-	                                                 <!-- parameterType은 인터페이스에 매개변수를 말하는거고 resultType은 인터페이스에 반환값을 말하는것이다. -->
-	   <selectKey resultType="int" keyProperty="replyNo"
-	     order="BEFORE"> <!-- selectkey를 설정을 해놓으면 -->
-	      select reply_seq.nextval
-	      from dual
-	   </selectKey>       
-	   INSERT INTO tbl_reply(reply_no                
-	                        ,board_no
-	                        ,reply
-	                        ,replyer
-	                        ,reply_date)
-	   values(#{replyNo},
-	          #{boardNo},
-	          #{reply},
-	          #{replyer},
-	          sysdate)                          
+
+	<insert id="insertReply" parameterType="reply">  <!-- mybatis-config에 설정해놓은 alias를 이용해서 replyType을 이용한다. -->
+		<!-- parameterType은 인터페이스에 매개변수를 말하는거고 resultType은 인터페이스에 반환값을 말하는것이다. -->
+		<selectKey resultType="int" keyProperty="replyNo"
+			order="BEFORE"> <!-- selectkey를 설정을 해놓으면 -->
+			select reply_seq.nextval
+			from dual
+		</selectKey>
+		INSERT INTO tbl_reply(reply_no
+		,board_no
+		,reply
+		,replyer
+		,reply_date)
+		values(#{replyNo},
+		#{boardNo},
+		#{reply},
+		#{replyer},
+		sysdate)
 	</insert>
 	<delete id="deleteReply" parameterType="int">
-	  delete FROm tbl_reply
-	  WHERE reply_no = #{rno}   <!-- 얘도 인터페이스 deleteReply 매서드의 매개변수(rno)를 가져온다 -->
+		delete FROm tbl_reply
+		WHERE reply_no = #{rno}   <!-- 얘도 인터페이스 deleteReply 매서드의 매개변수(rno)를 가져온다 -->
 	</delete>
-     
-     <select id="selectCount" parameterType="int" resultType="int">
-         select count(*)
-         from tbl_reply
-         WHERE board_no = #{bno}
-     </select>
+
+	<select id="selectCount" parameterType="int" resultType="int">
+		select count(*)
+		from tbl_reply
+		WHERE board_no = #{bno}
+	</select>
+
+	<insert id="insertCenter">
+		insert into tbl_center(id, center_name, sido, phone_number, address)
+         <foreach collection="array" item="center"
+          open=" select " separator=" from dual union all select " close=" from dual">
+           #{center.id},#{center.centerName},#{center.sido},#{center.phoneNumber},#{center.address}
+         </foreach>
+	</insert>
+	<delete id="deleteCenter">
+	   delete from tbl_center
+	   where id in 
+	   <foreach collection='array' item='center'
+	     open=" ( " separator =" , " close=" ) ">
+	      #{center.id}
+	     </foreach>
+	</delete>
+		<!-- select 1, 'cente1','seoul','010-111','서울시100' from dual union all 
+			select 2, 'cente2','seoul','010-111','서울시100' from dual union all select 
+			3, 'cente3','seoul','010-111','서울시100' from dual; -->
+	<select id="countPerSido" resultType="map">
+	 select sido "sido",
+       count(*) "cnt"
+       from tbl_center
+       group by sido
+	</select>
+
 </mapper>
