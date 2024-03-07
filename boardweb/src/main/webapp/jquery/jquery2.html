@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	Todo:
+	<input id="userVal">
+	<button id="addBtn">추가</button>
+	<br />
+	<ul id="list"></ul>
+	<hr />
+	학번:
+	<input id="sno"> 이름:
+	<input id="sname"> 점수:
+	<input id="score">
+	<button class="addBtn">등록</button>
+	<table border="1">
+		<thead>
+			<tr>
+			    <th><input type="checkbox"></th>
+				<th>학번</th>
+				<th>이름</th>
+				<th>점수</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+		  <tr><td><input type="checkbox"></td>
+		      <td>학번</td>
+		      <td>이름</td>
+		      <td>점수</td> 
+		  </tr> 
+		</tbody>
+	</table>
+	<script>
+	   //★제이커리로 선택자를 불러오면 무조건 배열 형식으로 가져온다★.
+	  $('thead input[type="checkbox"]').on('change',function (e){
+		  console.log($(this).prop('checked'));  //checked에서 true or false를반환
+		  let trueOrFalse = $(this).prop('checked')  //prop는 
+		  $('tbody input[type="checkbox"]').prop('checked',trueOrFalse)//true or false를 받아서 tbody에 전달			
+		
+	    //$('thead input').prop('checked', true);
+	  })
+		//이벤트 설정 jquery 등록버튼
+		$('#addBtn').on('click', function(e) {
+			let val = $('#userVal').val();
+			let delBtn = $('<button>삭제</button>');
+			delBtn.on('click', function(e) {
+				delBtn.parent().remove();
+			});
+
+			$('#list').append($('<li />').text(val).append(delBtn)); //<li>홍길동<button>삭제</button></li>
+			$('#userVal').val(''); //초기화작업
+		})
+		$('.addBtn').on('click',function (e){
+			let sno = $('#sno').val();
+			let sname = $('#sname').val();
+			let score = $('#score').val();
+			$('tbody#list').append(
+			 $('<tr />').append(
+			   $('<td />').append($('<input />').attr('type','checkbox')), //attr()은 속성값 
+			   $('<td />').text(sno),
+			   $('<td />').text(sname),
+			   $('<td />').text(score)
+			 )		
+			); 
+		})
+		
+	</script>
+</body>
+</html>
