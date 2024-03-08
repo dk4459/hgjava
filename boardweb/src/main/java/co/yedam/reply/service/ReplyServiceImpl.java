@@ -43,4 +43,8 @@ public class ReplyServiceImpl implements ReplyService{
     	// TODO Auto-generated method stub
     	return mapper.countPerSido();
     }
+     @Override
+    public List<Reply> replyList2(int bno) {
+    	return mapper.selectList2(bno);
+    }
 }

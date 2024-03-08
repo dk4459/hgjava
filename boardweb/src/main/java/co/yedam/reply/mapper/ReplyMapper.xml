@@ -74,5 +74,13 @@
        from tbl_center
        group by sido
 	</select>
+	
+	<select id="selectList2" parameterType="int"
+		resultType="reply">
+
+		select /*+INDEX(r reply_pk) */r.*  
+		FROM tbl_reply r
+		WHERE board_no= #{bno} 
+	</select>
 
 </mapper>

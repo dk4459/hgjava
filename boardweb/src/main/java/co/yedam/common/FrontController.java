@@ -83,6 +83,7 @@ public class FrontController extends HttpServlet{
 	    
 	    controls.put("/regiserCenter.do",new RegisterCenter());
 	    controls.put("/getSidoInfo.do", new SidoInfoControl());
+	    controls.put("/dataTable.do", new DataTableControl());
 	}
    //service. 요청할때 마다 실행
 	@Override

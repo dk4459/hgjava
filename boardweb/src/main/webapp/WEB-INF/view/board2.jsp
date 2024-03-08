@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css" rel="stylesheet"/>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+
+
 <style>
 div.reply div{
   margin: auto;
@@ -110,27 +109,13 @@ div.reply li {
 		</ul>
 	</div>
 	<div class="footer">
-<!-- datatable start -->
-   <table id="example" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>댓글번호</th>
-                <th>댓글내용</th>
-                <th>작성자</th>
-                <th>작성일시</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>댓글번호</th>
-                <th>댓글내용</th>
-                <th>작성자</th>
-                <th>작성일시</th>
-            </tr>
-        </tfoot>
-    </table>
-    <!-- datatable end -->
-    		
+		<div class="center">
+			<div class="pagination">
+				<a href="">1</a> 
+				<a href="">2</a> 
+				<a href="" class="active">3</a> <!-- active는 머물러 있는 페이지 표시 -->
+			</div>
+		</div>
 	</div>
 </div> <!-- div.container.reply 끝 -->
 
@@ -144,26 +129,8 @@ div.reply li {
 			form.action = 'removeForm.do';
 			form.submit();
 		}
-		
-		var table = $('#example').DataTable({
-		            ajax: 'dataTable.do?bno='+bno,
-		            columns: [
-		             { data: 'replyNo' },
-		             { data: 'reply' },
-		             { data: 'replyer' },
-		             { data: 'replyDate' },
-		    ],
-		 lengthMenu:[
-	        [5, 7, 10, 20, -1],
-	        [5, 7, 10, 20, 'All']
-		] 
-		});
-		$('.addReply').on('click', function(){
-		    table.row.add({
-		        'replyNo': '1',
-		        'reply': 'reply',
-		        'replyer': 'replyer',
-		        'replyDate': 'replyDate'
-		    }).draw(false);
-		});
-</script>
+	</script>
+<!-- <script src="static/js/boardService.js"></script> -->
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <script src="static/js/boardAjax.js"></script> -->
+<script type="module" src="static/js/boardService3.js"></script>

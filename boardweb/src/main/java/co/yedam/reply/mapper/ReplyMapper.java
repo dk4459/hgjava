@@ -11,6 +11,9 @@ public interface ReplyMapper {
       //목록,등록,삭제
 	 List<Reply> selectList(SearchVO search);
 	 int insertReply(Reply reply);
+	 
+	 List<Reply> selectList2(int bno);
+	 
 	 int deleteReply(int rno);
 	 //페이지계산위한 전체건수
 	 int selectCount(int bno);
