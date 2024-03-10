@@ -135,6 +135,7 @@ div.reply li {
 </div> <!-- div.container.reply 끝 -->
 
 	<script>
+	    let today = new Date();   
 	    const bno = "${board.boardNo }";
 	    const replyer = "${logid }";   //loginControl클래스에 세션 setAttribute값과 같아야한다.
 	    console.log(bno);
@@ -159,11 +160,13 @@ div.reply li {
 		] 
 		});
 		$('.addReply').on('click', function(){
+	        let reply1 = $('#reply').val();
+			console.log($('#reply'))
 		    table.row.add({
-		        'replyNo': '1',
-		        'reply': 'reply',
-		        'replyer': 'replyer',
-		        'replyDate': 'replyDate'
+		        'replyNo': '386',
+		        'reply': reply1,
+		        'replyer': replyer,
+		        'replyDate': today
 		    }).draw(false);
 		});
 </script>
