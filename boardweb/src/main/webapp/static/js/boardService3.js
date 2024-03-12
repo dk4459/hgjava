@@ -102,7 +102,7 @@ $('.addReply').on('click', function(e) {
 				alert('등록성공')
 				page =Math.ceil(result.totalCount/5.0);
 				service.replyList({ bno: bno, page: page },// 파라메타값1 bno는 board.jsp에 가져온 변수 page는 위에 전역변수로 가져온값
-					replyListCall,
+				replyListCall,
 				err=>console.log('err==>' + err)           // 파라메타값3
 				
 				);

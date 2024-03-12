@@ -9,7 +9,6 @@ import co.yedam.board.Book;
 import co.yedam.board.mapper.BoardMapper;
 import co.yedam.common.DataSource;
 import co.yedam.common.SearchVO;
-import co.yedam.member.Member;
 
 //업무 로직을 담고 있는 프로세스.
 //데이터처리는 mapper 기능.
