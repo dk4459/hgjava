@@ -1,4 +1,0 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<jsp:forward page="main.do"></jsp:forward>
-<h1>가가가가</h1>
